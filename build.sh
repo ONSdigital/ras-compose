@@ -6,11 +6,7 @@ PARENT=`pwd`
 
 
 # Rebuild .gitignore
-
-if [ -f ".gitignore" ]
-then
-    rm .gitignore
-fi
+echo ".gitignore" > .gitignore
 
 
 function clone {
