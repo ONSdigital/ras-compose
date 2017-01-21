@@ -2,34 +2,34 @@ version: '2'
 services:
   ras-frontstage:
     build:
-      context: https://github.com/ONSdigital/ras-frontstage.git
+      context: ras-frontstage
     networks:
       - ras
     ports: 
-      - "8080:8080"
+      - "5000:5000"
   ras-respondent:
     build: 
-      context: https://github.com/ONSdigital/ras-respondent.git
+      context: ras-respondent
     networks:
       - ras
   ras-gateway:
     build: 
-      context: https://github.com/ONSdigital/ras-gateway.git
+      context: ras-gateway
     networks:
       - ras
   ras-authentication:
     build: 
-      context: https://github.com/ONSdigital/ras-authentication.git
+      context: ras-authentication
     networks:
       - ras
   ras-registry:
     build: 
-      context: https://github.com/ONSdigital/ras-registry.git
+      context: ras-registry
     networks:
       - ras
   ras-config:
     build: 
-      context: https://github.com/ONSdigital/ras-config.git
+      context: ras-config
     networks:
       - ras
 
