@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-REPOS="ras-authentication ras-compose ras-config ras-config-files ras-frontstage ras-gateway ras-registry ras-respondent"
+REPOS="ras-frontstage ras-respondent ras-config ras-config-files ras-gateway ras-registry ras-authentication"
 PARENT=`pwd`
 
 
@@ -70,8 +70,12 @@ do
       mvn clean package
     elif [ -f "build.gradle" ]
     then
-      echo - Gradle building $name
-      gradle build
+      # Build anything but Cloudfoundry. That needs to be built on container build because it's "special".
+      if [ "$name" != "ras-authentication" ]
+      then
+        echo - Gradle building $name
+        gradle clean build
+      fi
     fi
     cd $PARENT
 
