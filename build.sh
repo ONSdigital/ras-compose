@@ -79,5 +79,9 @@ do
     fi
     cd $PARENT
 
+    # Build .gitignore
+
+    echo $name >> .gitignore
+
   fi
 done
