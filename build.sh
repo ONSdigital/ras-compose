@@ -74,7 +74,10 @@ do
       if [ "$name" != "ras-authentication" ]
       then
         echo - Gradle building $name
-        gradle clean build
+        # Build using the host machine..
+        #gradle clean build
+        # ...or use a temporary container to run the build:
+        docker run -it --rm --volume `pwd`:/root --volume $HOME/.gradle:/root/.gradle frekele/gradle gradle clean build
       fi
     fi
     cd $PARENT
