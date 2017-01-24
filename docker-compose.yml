@@ -2,7 +2,8 @@ version: '2'
 services:
   ras-frontstage:
     build:
-      context: ras-frontstage
+      context: https://github.com/ONSdigital/ras-frontstage.git
+      #context: ras-frontstage
     networks:
       - ras
     ports: 
