@@ -6,10 +6,12 @@ Developer environment for RAS components.
 
 
 ## Preamble
+
 This guide is written after trial on Linux Mint 18, hence may have text fields in example related to this.
 Linux Mint 18 is a derivative of Ubuntu 16.04, all commands should work.
 
 ## Introduction
+
 This guide should step you through the steps needed to get a default Linux distro to the point where you can
 spin up docker containers on your machine. Each container will pull down the relevant source code to run the
 application software for each service.
@@ -18,8 +20,17 @@ with the exception of a python web app using the python Flask micro service.
 
 ## Software Components Recommended
 
+Recommended is Pythons Virtual Environment Wrapper. This makes setting up Python Virtual Environments easy!
+Ansible 2.1.0.0, which will help in orchestration.
 
 ## Software Components Needed
+
+To run the spring boost micro services you will need a Java Virtual Machine and the SDK, with openjdk version
+"1.8.0_111", OpenJDK 64-Bit Server VM.
+Python 2.7 is used for the Flask micro service but this is will be installed as standard, joy!
+A Python virtual environment package is needed version 15.0.1.
+Docker (Docker Engine version 1.13.0, Docker Machine version 0.8.2 and Docker Compose  version 1.8.1)
+Gradle 3.3 the Java package manager.
 
 
 ## Setting Up Java
@@ -271,7 +282,7 @@ Then remove the image:
 
 	/> sudo docker rmi modest_noyce
 
-	
+
 
 
 
