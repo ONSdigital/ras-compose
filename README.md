@@ -172,6 +172,65 @@ changing the one above.
 
 ## Setting Up Gradle
 
+Gradle is a package/build manager for Java. It's based on Ant and Groove. You don't need to install Groovy as it's
+included in the package. You are not able to use the package managers version - which is at 2.1. We need to use version
+3.3. You can find out [details on Gradle here](https://docs.gradle.org/current/userguide/installation.html).
+
+1) First go to your directory setup for 3rd party packages that are outside the version packaged with your system.
+
+	/> cd <your 3rd party pacakges directory>
+	/> wget https://services.gradle.org/distributions/gradle-3.3-bin.zip
+	/> unzip unzip gradle-3.3-bin.zip
+
+This will place your gradle installation into a folder called 'gradle-3.3'. Next we need to create an environment
+variable and add the new binary to our path. I would recommend that you **DO NOT** simply add the binary to /usr/bin
+directory keep that save.
+
+2) Add the gradle environment variable to your bashrc script using your favourite text editor, I'm using geany.
+
+	/> cd ~
+	/> geany .bashrc
+
+Add the equivalent to your script at the end:
+
+	# Added by Nicholas Herriot 25/01/2017 to get my environment using gradle 3.3 and not
+	# the package managers verion
+	export GRADLE_HOME=/home/nherriot/virtalenv/ONS-ras/needed-packages/gradle-3.3/bin
+
+3) In your profile script add the **GRADLE_HOME** directory to your path
+
+	/> cd ~
+	/> geany .profile
+
+Add the equivalent to your script where gradle is addded to your path string.
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH:$HOME/virtalenv:$GRADLE_HOME"
+fi
+
+4) Nothing will have changed unless you re-run the bash scripts. Testing your gradle version shows:
+
+	/> gradle -version
+
+
+	nherriot@Zenbook-UX32A ~ $ gradle -version
+	------------------------------------------------------------
+	Gradle 2.10
+	------------------------------------------------------------
+
+Now we need to manually run those scripts in our shell to test.
+
+	/> source .bashrc
+	/> source .profile
+
+	/> echo $PATH
+	/home/nherriot/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/nherriot/virtalenv
+	/> echo $PATH
+	/home/nherriot/bin:/home/nherriot/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/nherriot/virtalenv:/home/nherriot/virtalenv:/home/nherriot/virtalenv/ONS-ras/needed-packages/gradle-3.3/bin
+
+Or simply restart your machine! :-)
+
 
 
 ## Testing Docker Works
