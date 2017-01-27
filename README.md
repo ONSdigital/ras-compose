@@ -35,10 +35,63 @@ Gradle 3.3 the Java package manager.
 
 ## Setting Up Java
 
+Versions of Java Needed are Java 8. Which equates to JSDK 1.8. On my machine I'm using Open JDK 8. Use the
+package managers version, or from apt do:
+
+/> sudo apt-get install openjdk-8-jre
+
+To test you have the correct version do:
+
+/> java -version
+java -version
+openjdk version "1.8.0_111"
+OpenJDK Runtime Environment (build 1.8.0_111-8u111-b14-2ubuntu0.16.04.2-b14)
+OpenJDK 64-Bit Server VM (build 25.111-b14, mixed mode)
 
 
-## Setting Up VirtualEnvWrapper
+## Setting Up VirtualEnv and VirtualEnvWrapper
 
+Virtualenv is a tool used to allow a developer to create 'software containers' for Python. What this means is that
+the developer can produce a python application that is targeted to and built with a set version of Python and all the
+sub-component libraries that may be needed. It does not mean a virtual machine or even a container such as docker.
+I've included 'VirtualEnvWrapper' which is a wrapper over virtualenv that allows you to easily work with your python
+software 'containers'.
+
+1) Use the software package managers version of virtualenv. Do not use the 'pip install' method!
+
+/> sudo apt-get virtualenv
+
+Now use the python package manager to get virtualenvwrapper
+
+/> sudo pip install virtualenvwrapper
+
+2) Setup your bashrc script to provide environment variables for virtualenve
+
+		# Added by Nicholas Herriot 25/01/2017 to get virtualenvwrapper working properly.
+		# See: https://virtualenvwrapper.readthedocs.io/en/latest/
+
+		# My machine has virtual environments here.
+		#export WORKON_HOME=$HOME/virtalenv
+		export WORKON_HOME=/home/nherriot/virtalenv
+
+		# Where projects will reside. I have my projects also in my virtual environment
+		#export PROJECT_HOME=$HOME/virtalenv
+		export PROJECT_HOME=/home/nherriot/virtalenv
+
+		# I've gone for a generic virtualenvwrapper and not down to individual user so my virtualenvwrapper
+		# lives in here. If you have gone through the 'user' route you would have put it here:
+		# source $HOME/.local/bin/virtualenvwrapper.sh
+
+		source /usr/local/bin/virtualenvwrapper.sh
+
+3) Setup your profile script to populate your environment path with the virtualenvwrapper. Your profile should look
+something like this:
+
+
+	# set PATH so it includes user's private bin if it exists
+	if [ -d "$HOME/bin" ] ; then
+		PATH="$HOME/bin:$PATH:$HOME/virtalenv:$GRADLE_HOME/bin"
+	fi
 
 
 ## Setting Up Docker
@@ -344,14 +397,79 @@ Then remove the image:
 
 
 
-
-
-
 ## Testing Building The Components
+
+The software can be downloaded by doing
+
+		/> git clone https://github.com/ONSdigital/ras-compose.git
+
+To build the software - which will pull all dependencies and sub components you can run the shell script
+called build like:
+
+		/> cd ras-compose
+		/> ./build
+
+This will pull down all the repos and place in docker containers with subdirectories from the branch. Your directory
+tree should now look like:
+
+		-rwxr-xr-x  1 nherriot nherriot  1738 Jan 27 14:56 build.sh
+		-rwxr-xr-x  1 nherriot nherriot   424 Jan 27 14:56 cmd.sh
+		drwxr-xr-x  2 nherriot nherriot  4096 Jan 27 14:56 curl
+		-rw-r--r--  1 nherriot nherriot   643 Jan 27 14:56 docker-compose.yml
+		-rw-r--r--  1 nherriot nherriot  1068 Jan 27 14:56 LICENSE
+		drwxr-xr-x 11 nherriot nherriot  4096 Jan 27 14:57 ras-authentication
+		drwxr-xr-x  4 nherriot nherriot  4096 Jan 27 14:57 ras-config
+		drwxr-xr-x  3 nherriot nherriot  4096 Jan 27 14:57 ras-config-files
+		drwxr-xr-x  4 nherriot nherriot  4096 Jan 27 14:57 ras-gateway
+		drwxr-xr-x  4 nherriot nherriot  4096 Jan 27 14:57 ras-registry
+		drwxr-xr-x  4 nherriot nherriot  4096 Jan 27 14:57 ras-respondent
+		-rw-r--r--  1 nherriot nherriot 15254 Jan 27 14:56 README.md
+		-rwxr-xr-x  1 nherriot nherriot   268 Jan 27 14:56 run.sh
+
 
 
 
 ## Testing Running The Components
+
+At this point we are going to run only a few commands from the run.sh script. Since it contains docker commands it
+makes sense to run each one individually and provide command output to help with setup. You can do a 'more' on the
+run.sh command. Try this:
+
+1) Use docker to pull down any containers that may already be running.
+
+		/> sudo docker-compose down
+
+2) Build any docker images that are in this directory and create the containers
+
+		/> sudo docker-compose build
+
+3) Bring up the images into a container in a detached mode.
+
+		/> sudo docker-compose up -d
+		[sudo] password for nherriot:
+		Creating network "rascompose_ras" with the default driver
+		Creating rascompose_ras-registry_1
+		Creating rascompose_ras-authentication_1
+		Creating rascompose_ras-respondent_1
+		Creating rascompose_ras-config_1
+		Creating rascompose_ras-gateway_1
+		Creating rascompose_ras-frontstage_1
+
+
+4) Lets just check to see what containers are up and running on docker. Using the docker ps command you should see
+something like this:
+
+		~/virtalenv/testONS/ras-compose $ sudo docker ps
+		CONTAINER ID        IMAGE                           COMMAND                  CREATED              STATUS              PORTS                    NAMES
+		3b9cecb8964f        rascompose_ras-gateway          "/bin/sh -c 'java ..."   About a minute ago   Up About a minute                            rascompose_ras-gateway_1
+		49df20506690        rascompose_ras-frontstage       "/bin/sh -c 'pytho..."   About a minute ago   Up About a minute   0.0.0.0:5000->5000/tcp   rascompose_ras-frontstage_1
+		fee2cae4d9e5        rascompose_ras-config           "/bin/sh -c 'java ..."   About a minute ago   Up About a minute                            rascompose_ras-config_1
+		391d820ed21b        rascompose_ras-respondent       "/bin/sh -c 'java ..."   About a minute ago   Up About a minute                            rascompose_ras-respondent_1
+		0c87d7c693d1        rascompose_ras-authentication   "/bin/sh -c './gra..."   About a minute ago   Up About a minute                            rascompose_ras-authentication_1
+		b6ce35d01391        rascompose_ras-registry         "/bin/sh -c 'java ..."   About a minute ago   Up About a minute                            rascompose_ras-registry_1
+
+You will see that the component called rascompose_ras-frontstage has an open TCP port running on local host:5000
+Go to your browser and open this port on localhost i.e. http://localhost:5000/ You should see hello world! :-)
 
 
 
