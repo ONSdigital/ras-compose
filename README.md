@@ -24,6 +24,12 @@ The following components are here to provide a Spring Cloud Netflix environment 
   * [ras-config](https://github.com/ONSdigital/ras-config) - the Spring Cloud single-annotation config server. *This is not currently in use as Spring Boot clients don't seem to be able to retrieve their properties from it out-of-the-box, using the Spring-supplied example code*.
   * [ras-config-files](https://github.com/ONSdigital/ras-config-files) - test config properties for [ras-config](https://github.com/ONSdigital/ras-config). *Not currently in use*.
   
+### Architecture pattern
+
+The following diagram summarises how the components above form a standard Spring Cloud Netflix environment:
+
+![Architecture pattern](https://docs.google.com/drawings/d/1LBzr-0UqJoLVxNgLoy5dog3O4tihLpVjMvQq6Qs43bU/pub?w=1061&h=719)
+
 ## Developer machine setup
 
 The following is a how To guide for getting a dev environment up For ubuntu 16.04 or derivative (e.g. Mint 18)
