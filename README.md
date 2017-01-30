@@ -18,21 +18,23 @@ The following components provide the functionality of the Respondent Account Ser
 
 The following components are here to provide a Spring Cloud Netflix environment around the application components:
 
-  * [ras-gateway](https://github.com/ONSdigital/ras-gateway) - a Spring Cloud implementation of Zuul.
+  * [ras-gateway](https://github.com/ONSdigital/ras-gateway) - a Spring Cloud annotation-driven implementation of Zuul.
   * [ras-registry](https://github.com/ONSdigital/ras-registry) - the Spring Cloud single-annotation implementation of Netflix Eureka.
-  * [ras-authentication](https://github.com/ONSdigital/ras-authentication) - a forked copy of the [Cloud Foundry UAA component](https://github.com/cloudfoundry/uaa), but stripped back to version 3.9.1 because versions 3.9.2 and 3.9.3 fail to start using the Cloud Foundry supplied Quick Start instructions (`./gradlew run`)
-  * [ras-config](https://github.com/ONSdigital/ras-config) - the Spring Cloud single-annotation config server. This is not currently in use as Spring Boot clients don't seem to be able to retrieve their properties from it out-of-the-box.
-  * [ras-config-files](https://github.com/ONSdigital/ras-config-files) - test config properties for [ras-config](https://github.com/ONSdigital/ras-config). Not currently in use.
+  * [ras-authentication](https://github.com/ONSdigital/ras-authentication) - a forked copy of the [Cloud Foundry UAA component](https://github.com/cloudfoundry/uaa), stripped back to version 3.9.1 because versions 3.9.2 and 3.9.3 fail to start using the Cloud Foundry supplied Quick Start instructions (`./gradlew run`)
+  * [ras-config](https://github.com/ONSdigital/ras-config) - the Spring Cloud single-annotation config server. *This is not currently in use as Spring Boot clients don't seem to be able to retrieve their properties from it out-of-the-box, using the Spring-supplied example code*.
+  * [ras-config-files](https://github.com/ONSdigital/ras-config-files) - test config properties for [ras-config](https://github.com/ONSdigital/ras-config). *Not currently in use*.
+  
+## Developer machine setup
 
-# How To Guide Getting Dev Environment Up For Ubuntu 16.04 Or Derivative (e.g. Mint 18)
+The following is a how To guide for getting a dev environment up For ubuntu 16.04 or derivative (e.g. Mint 18)
 
 
-## Preamble
+### Preamble
 
 This guide is written after trial on Linux Mint 18, hence may have text fields in example related to this.
 Linux Mint 18 is a derivative of Ubuntu 16.04, all commands should work.
 
-## Introduction
+### Introduction
 
 This guide should step you through the steps needed to get a default Linux distro to the point where you can
 spin up docker containers on your machine. Each container will pull down the relevant source code to run the
@@ -40,12 +42,12 @@ application software for each service.
 Each container will map to a Pivital [CloudFoundary Microservice](https://content.pivotal.io/microservices),
 with the exception of a python web app using the python Flask micro service.
 
-## Software Components Recommended
+### Software Components Recommended
 
 Recommended is Pythons Virtual Environment Wrapper. This makes setting up Python Virtual Environments easy!
 Ansible 2.1.0.0, which will help in orchestration.
 
-## Software Components Needed
+### Software Components Needed
 
 To run the spring boost micro services you will need a Java Virtual Machine and the SDK, with openjdk version
 "1.8.0_111", OpenJDK 64-Bit Server VM.
@@ -55,7 +57,7 @@ Docker (Docker Engine version 1.13.0, Docker Machine version 0.8.2 and Docker Co
 Gradle 3.3 the Java package manager.
 
 
-## Setting Up Java
+### Setting Up Java
 
 Versions of Java Needed are Java 8. Which equates to Java Development Kit (JDK) & Jave Runtime Environment (JRE1.8).
 On my machine I'm using Open JDK 8. Use the package managers version. If you get any errors due to Error 404 with your
@@ -117,7 +119,7 @@ To test you have the correct version do:
 	OpenJDK 64-Bit Server VM (build 25.111-b14, mixed mode)
 
 
-## Setting Up VirtualEnv and VirtualEnvWrapper
+### Setting Up VirtualEnv and VirtualEnvWrapper
 
 Virtualenv is a tool used to allow a developer to create 'software containers' for Python. What this means is that
 the developer can produce a python application that is targeted to and built with a set version of Python and all the
@@ -162,7 +164,7 @@ something like this:
 	fi
 
 
-## Setting Up Docker
+### Setting Up Docker
 
 Docker is needed to run the microservice in isolated containers (there are lots of them!) We could use VM's, Vagrant and
 ansible - however the environment needed to support multiple (6 minimum) servers each with a micro service is not
@@ -171,7 +173,7 @@ that a virtual machine would. More info on Docker can be [found here](https://ww
 
 On your system you will need 3 docker components running on your machine each documented below
 
-### Docker and Docker Engine
+#### Docker and Docker Engine
 Docker is the main application which allows a user to run docker. Docker version required is 1.13.0. Do not
 update your apt package index, it will not be recent enough. Download the latest version by adding the
 docker package index:
@@ -257,7 +259,7 @@ is a mix from those resources:
 [resource 2](https://docs.docker.com/engine/installation/linux/ubuntu/)
 
 
-### Docker Machine
+#### Docker Machine
 Docker engine allows you to interface with and control multiple containers that can be running remotely in the
 machine. The version required is 0.8.2. This will be a manual installation.
 1) Fist create a directory to
@@ -278,7 +280,7 @@ usr local bin folder.
 	/> docker-machine -version
 	/> docker-machine version 0.8.2, build e18a919
 
-### Docker Container
+#### Docker Container
 The Docker Container app is used for running scripts that control (i.e. start, stop, build and create) containers.
 It's an orchestration layer based on the open source 'fig' project. The version required is 1.8.1. First lets
 download it directly to our /usr/local/bin directory for our particular machine architecture:
@@ -291,7 +293,7 @@ changing the one above.
 
 
 
-## Setting Up Gradle
+### Setting Up Gradle
 
 Gradle is a package/build manager for Java. It's based on Ant and Groove. You don't need to install Groovy as it's
 included in the package. You are not able to use the package managers version - which is at 2.1. We need to use version
@@ -354,7 +356,7 @@ Or simply restart your machine! :-)
 
 
 
-## Testing Docker Works
+### Testing Docker Works
 
 This section will ensure that you have all your docker components working without googling for 2 hours trying to
 find good guides. Starts with the basics and ensures you are up to speed in no time! Remember a docker container is
@@ -465,7 +467,7 @@ Then remove the image:
 
 
 
-## Testing Building The Components
+### Testing Building The Components
 
 The software can be downloaded by doing
 
@@ -497,7 +499,7 @@ tree should now look like:
 
 
 
-## Testing Running The Components
+### Testing Running The Components
 
 At this point we are going to run only a few commands from the run.sh script. Since it contains docker commands it
 makes sense to run each one individually and provide command output to help with setup. You can do a 'more' on the
