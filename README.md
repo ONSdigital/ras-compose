@@ -30,7 +30,20 @@ The following diagram summarises how the components above form a standard Spring
 
 ![Architecture pattern](https://docs.google.com/drawings/d/1LBzr-0UqJoLVxNgLoy5dog3O4tihLpVjMvQq6Qs43bU/pub?w=1061&h=719)
 
+## Running
+
+Here's how to get RAS up and running. For a developer machine, [Docker Compose](https://docs.docker.com/compose/) is a good way to go:
+
+  * To pull and build the set of components, run `./build.sh'. This will check out each repo and, using a Gradle container, compile each Java component.
+  * To start the system, run `./run.sh`. This will clear down your environment, build container images and start up the components according to the `docker-compose.yml` file.
+  * To make things a little easier, [ras-frontstage](https://github.com/ONSdigital/ras-frontstage) gets mapped to [http://localhost:5000] and [ras-gateway](https://github.com/ONSdigital/ras-gateway) gets mapped to [http://localhost:8080]
+  * To get a command-line 
+
 ## Developer machine setup
+
+This diagram summarises the kinds of target environment we're looking at for deploying this application. 
+
+https://docs.google.com/drawings/d/1H6k7CheKkCEHCFb91RrQW_XzGEuuXup1ReDwYnBFNJY/pub?w=632&h=387
 
 The following is a how To guide for getting a dev environment up For ubuntu 16.04 or derivative (e.g. Mint 18)
 
