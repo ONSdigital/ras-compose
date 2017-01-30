@@ -1,6 +1,28 @@
 # ras-compose
 Developer environment for RAS components.
 
+## Overview
+
+The Respondent Account Services application is made up of a collection of repositories, starting with "ras-". You can find them using a [search for ras repositories](https://github.com/ONSdigital?q=ras-).
+
+In that list, you should see the following components (these may get renamed and the list may change faster than this document):
+
+### Application components
+
+The following components provide the functionality of the Respondent Account Services system:
+
+  * [ras-frontstage](https://github.com/ONSdigital/ras-frontstage) - this is a Python/Flask web application that provides the public user interface to the system.
+  * [ras-respondent](https://github.com/ONSdigital/ras-respondent) - this is a basic Spring Boot microservice to receive calls from the front-end web application.
+
+### Supporting components
+
+The following components are here to provide a Spring Cloud Netflix environment around the application components:
+
+  * [ras-gateway](https://github.com/ONSdigital/ras-gateway) - a Spring Cloud implementation of Zuul.
+  * [ras-registry](https://github.com/ONSdigital/ras-registry) - the Spring Cloud single-annotation implementation of Netflix Eureka.
+  * [ras-authentication](https://github.com/ONSdigital/ras-authentication) - a forked copy of the [Cloud Foundry UAA component](https://github.com/cloudfoundry/uaa), but stripped back to version 3.9.1 because versions 3.9.2 and 3.9.3 fail to start using the Cloud Foundry supplied Quick Start instructions (`./gradlew run`)
+  * [ras-config](https://github.com/ONSdigital/ras-config) - the Spring Cloud single-annotation config server. This is not currently in use as Spring Boot clients don't seem to be able to retrieve their properties from it out-of-the-box.
+  * [ras-config-files](https://github.com/ONSdigital/ras-config-files) - test config properties for [ras-config](https://github.com/ONSdigital/ras-config). Not currently in use.
 
 # How To Guide Getting Dev Environment Up For Ubuntu 16.04 Or Derivative (e.g. Mint 18)
 
