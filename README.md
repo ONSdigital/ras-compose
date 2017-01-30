@@ -5,7 +5,7 @@ This repository is intended to be a single place from which to "check out, build
 
 ## Overview
 
-The Respondent Account Services application is made up of a collection of repositories, starting with "ras-". You can find them using a [search for ras repositories](https://github.com/ONSdigital?q=ras-).
+The Respondent Account Services application is made up of a collection of repositories. The names of the repositories for this application all start with "ras-". You can find them using a [search for ras repositories](https://github.com/ONSdigital?q=ras-).
 
 In that list, you should see the following components (these may get renamed and the list may change faster than this document):
 
