@@ -3,11 +3,10 @@ services:
   ras-frontstage:
     build:
       context: https://github.com/ONSdigital/ras-frontstage.git
-      #context: ras-frontstage
+    ports:
+      - "5000:5000"
     networks:
       - ras
-    ports: 
-      - "5000:5000"
   ras-respondent:
     build: 
       context: ras-respondent
@@ -16,6 +15,8 @@ services:
   ras-gateway:
     build: 
       context: ras-gateway
+    ports:
+      - "8080:8080"
     networks:
       - ras
   ras-authentication:
