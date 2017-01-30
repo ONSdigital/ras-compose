@@ -10,11 +10,15 @@ services:
   ras-respondent:
     build: 
       context: ras-respondent
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
     networks:
       - ras
   ras-gateway:
     build: 
       context: ras-gateway
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
     ports:
       - "8080:8080"
     networks:
