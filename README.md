@@ -43,7 +43,7 @@ Here's how to get RAS up and running. For a developer machine, [Docker Compose](
 
 This diagram summarises the kinds of target environment we're looking at for deploying this application. 
 
-https://docs.google.com/drawings/d/1H6k7CheKkCEHCFb91RrQW_XzGEuuXup1ReDwYnBFNJY/pub?w=632&h=387
+![Targetting Cloud Foundry or Docker](https://docs.google.com/drawings/d/1H6k7CheKkCEHCFb91RrQW_XzGEuuXup1ReDwYnBFNJY/pub?w=632&h=387)
 
 The following is a how To guide for getting a dev environment up For ubuntu 16.04 or derivative (e.g. Mint 18)
 
