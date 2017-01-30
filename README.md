@@ -1,7 +1,7 @@
 # ras-compose
 Developer environment for RAS components. 
 
-This repository is intended to be a single place from which to "check out, build and run" the Respondent Account Services system. If you have [Docker](https://docker.com/) ([Mac](https://docs.docker.com/#/docker-for-windows) [Linux](https://docs.docker.com/#/docker-for-linux) [Windows](https://docs.docker.com/#/docker-for-windows))and [Docker Compose](https://www.docker.com/products/docker-compose) installed, you *should* be able to clone and go. If not, do get in touch.
+This repository is intended to be a single place from which to "check out, build and run" the Respondent Account Services system. If you have [Docker](https://docker.com/) ([Mac](https://docs.docker.com/#/docker-for-mac) / [Linux](https://docs.docker.com/#/docker-for-linux) / [Windows](https://docs.docker.com/#/docker-for-windows)) and [Docker Compose](https://www.docker.com/products/docker-compose) installed, you *should* be able to clone and go. If not, do get in touch.
 
 ## Overview
 
