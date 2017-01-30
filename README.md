@@ -35,18 +35,64 @@ Gradle 3.3 the Java package manager.
 
 ## Setting Up Java
 
-Versions of Java Needed are Java 8. Which equates to JSDK 1.8. On my machine I'm using Open JDK 8. Use the
-package managers version, or from apt do:
+Versions of Java Needed are Java 8. Which equates to Java Development Kit (JDK) & Jave Runtime Environment (JRE1.8).
+On my machine I'm using Open JDK 8. Use the package managers version. If you get any errors due to Error 404 with your
+package manager not finding a repo it might mean you need to purge your apt repos and update your packages index:
 
-/> sudo apt-get install openjdk-8-jre
+	/> sudo apt-get install openjdk-8-jre
+	/> sudo apt-get install openjdk-8-jdk
+
+If there are any errors in running this that relate to broken index's, 404 errors, or broken dependencies it might be
+that your package manager index is out of date. e.g.
+
+
+		Reading package lists... Done
+		Building dependency tree
+		Reading state information... Done
+		Correcting dependencies... Done
+		The following additional packages will be installed:
+		  openjdk-8-jdk openjdk-8-jdk-headless
+		Suggested packages:
+		  openjdk-8-demo openjdk-8-source visualvm
+		Recommended packages:
+		  libxt-dev
+		The following NEW packages will be installed
+		  openjdk-8-jdk openjdk-8-jdk-headless
+		0 to upgrade, 2 to newly install, 0 to remove and 0 not to upgrade.
+		2 not fully installed or removed.
+		Need to get 8,618 kB of archives.
+		After this operation, 39.7 MB of additional disk space will be used.
+		Do you want to continue? [Y/n] y
+		Err:1 http://security.ubuntu.com/ubuntu xenial-security/main amd64 openjdk-8-jdk-headless amd64 8u111-b14-2ubuntu0.16.04.2
+		  404  Not Found [IP: 91.189.88.152 80]
+		Ign:2 http://security.ubuntu.com/ubuntu xenial-security/main amd64 openjdk-8-jdk amd64 8u111-b14-2ubuntu0.16.04.2
+		Err:1 http://security.ubuntu.com/ubuntu xenial-security/main amd64 openjdk-8-jdk-headless amd64 8u111-b14-2ubuntu0.16.04.2
+		  404  Not Found [IP: 91.189.88.152 80]
+		Err:2 http://security.ubuntu.com/ubuntu xenial-security/main amd64 openjdk-8-jdk amd64 8u111-b14-2ubuntu0.16.04.2
+		  404  Not Found [IP: 91.189.88.152 80]
+		E: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/o/openjdk-8/openjdk-8-jdk-headless_8u111-b14-2ubuntu0.16.04.2_amd64.deb  404  Not Found [IP: 91.189.88.152 80]
+
+		E: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/o/openjdk-8/openjdk-8-jdk_8u111-b14-2ubuntu0.16.04.2_amd64.deb  404  Not Found [IP: 91.189.88.152 80]
+
+
+To get a new index refreshed you can do the following:
+
+	/> sudo apt-get update
+	/> sudo apt-get clean
+	/> sudo apt-get autoremove
+	/> sudo apt-get -f install
+
+Now you should be able to get the JDK installed. :-)
+
+	/> sudo apt-get install openjdk-8-jdk
 
 To test you have the correct version do:
 
-/> java -version
-java -version
-openjdk version "1.8.0_111"
-OpenJDK Runtime Environment (build 1.8.0_111-8u111-b14-2ubuntu0.16.04.2-b14)
-OpenJDK 64-Bit Server VM (build 25.111-b14, mixed mode)
+	/> java -version
+	java -version
+	openjdk version "1.8.0_111"
+	OpenJDK Runtime Environment (build 1.8.0_111-8u111-b14-2ubuntu0.16.04.2-b14)
+	OpenJDK 64-Bit Server VM (build 25.111-b14, mixed mode)
 
 
 ## Setting Up VirtualEnv and VirtualEnvWrapper
