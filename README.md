@@ -36,8 +36,8 @@ The following diagram summarises how the components above form a standard Spring
 
 Here's how to get RAS up and running. For a developer machine, [Docker Compose](https://docs.docker.com/compose/) is a good way to go:
 
-  * To pull and build the set of components, run `./build.sh`. This will check out each repo and, using a Gradle container, compile each Java component.
-  * To start the system, run `./run.sh`. This will clear down your environment, build container images and start up the components according to the `docker-compose.yml` file.
+  * To pull and build the set of components, run [./build.sh](https://github.com/ONSdigital/ras-compose/blob/master/build.sh). This will check out each repo and, using a Gradle container, compile each Java component.
+  * To start the system, run [./run.sh](https://github.com/ONSdigital/ras-compose/blob/master/run.sh). This will clear down your environment, build container images and start up the components according to the [docker-compose.yml](https://github.com/ONSdigital/ras-compose/blob/master/docker-compose.yml) file.
   * To make things a little easier, [ras-frontstage](https://github.com/ONSdigital/ras-frontstage) gets mapped to [localhost:5000](http://localhost:5000) and [ras-gateway](https://github.com/ONSdigital/ras-gateway) gets mapped to [localhost:8080](http://localhost:8080)
   * To get a command-line where you can `curl` individual components, run `./cmd.sh`. You may need to check `docker network ls` to ensure the run script is attempting to attach you to the correct Docker network.
 
