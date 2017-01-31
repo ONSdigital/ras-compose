@@ -53,4 +53,6 @@ There are basically three ways to get a running system:
   * Run using **Docker Compose**. This should be straightforward and, if you already use Docker, the most straightforward and accessible way of understanding how the components fit together.
   * Run using **Cloud Foundry**. If you like Cloud Foundry, you can run the system using something like [PCF Dev](https://pivotal.io/pcf-dev). This is something of a halfway house. There'll be some manual effort to CF push and configure some of the components, but if CF is a natural environment for you this might be your preferred option.
 
-For a couple of additional resources, see the `/docs` folder in this repo.
+For a couple of additional resources, see the [/docs](https://github.com/ONSdigital/ras-compose/blob/master/docs) folder in this repo.
+
+There are also specific instructions for setting up [Linux Mint](https://github.com/ONSdigital/ras-compose/blob/master/docs/Linux-Mint.md)
