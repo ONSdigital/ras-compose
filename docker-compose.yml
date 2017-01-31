@@ -26,6 +26,10 @@ services:
   ras-authentication:
     build: 
       context: ras-authentication
+    ports:
+      - "8888:8080"
+    volumes:
+      - "/Users/davidcarboni/.gradle:/root/.gradle"
     networks:
       - ras
   ras-registry:
