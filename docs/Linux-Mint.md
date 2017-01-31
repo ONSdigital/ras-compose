@@ -231,6 +231,34 @@ is a mix from those resources:
 [resource 1](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04)
 [resource 2](https://docs.docker.com/engine/installation/linux/ubuntu/)
 
+6) Docker will normally need you to use 'sudo' to run commands. This can be annoying and it can cause issues with Linux
+installs when using docker to build the Java system. To get round this we can add our user to the docker group. We you
+run the docker ps command and get a permission error like this:
+
+/> docker ps
+/> Got permission denied while trying to connect to the Docker daemon socket at
+/> unix:///var/run/docker.sock:
+/> Get http://%2Fvar%2Frun%2Fdocker.sock/v1.25/containers/json: dial unix /var/run/docker.sock: connect: permission denied
+
+You can do:
+
+/> sudo usermod -aG docker $(whoami)
+
+A system reboot or login / logout is required. Checking 'groups' you should see the new docker group as part of your
+users groups:
+
+/>
+Now running docker you have:
+/> groups
+/> nherriot adm cdrom sudo dip plugdev lpadmin sambashare **docker**
+
+Docker now works without sudo:
+
+/> docker ps
+/> CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+
+
 
 #### Docker Machine
 Docker engine allows you to interface with and control multiple containers that can be running remotely in the
