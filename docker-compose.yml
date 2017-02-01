@@ -28,8 +28,10 @@ services:
       context: ras-authentication
     ports:
       - "8888:8080"
-    volumes:
-      - "/Users/davidcarboni/.gradle:/root/.gradle"
+    # volumes:
+    #  - "~/.gradle:/root/.gradle"
+    # environment:
+    #  - CLOUD_FOUNDRY_CONFIG_PATH=/ras-config
     networks:
       - ras
   ras-registry:
