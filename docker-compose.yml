@@ -11,16 +11,18 @@ services:
     build: 
       context: ras-respondent
     environment:
+      - server.port=8080
       - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
     networks:
       - ras
   ras-gateway:
     build: 
       context: ras-gateway
-    environment:
-      - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
     ports:
       - "8080:8080"
+    environment:
+      - server.port=8080
+      - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
     networks:
       - ras
   ras-authentication:
@@ -28,20 +30,23 @@ services:
       context: ras-authentication
     ports:
       - "8888:8080"
-    # volumes:
-    #  - "~/.gradle:/root/.gradle"
-    # environment:
-    #  - CLOUD_FOUNDRY_CONFIG_PATH=/ras-config
+    environment:
+      - server.port=8080
+      - CLOUD_FOUNDRY_CONFIG_PATH=/ras-config
     networks:
       - ras
   ras-registry:
     build: 
       context: ras-registry
+    environment:
+      - server.port=8080
     networks:
       - ras
   ras-config:
     build: 
       context: ras-config
+    environment: 
+      - server.port=8080
     networks:
       - ras
 
