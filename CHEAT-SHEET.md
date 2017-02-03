@@ -86,12 +86,35 @@ or:
 
 ### Config For UUA (ras-authentication)
 
+1) Where is the main config file for UAA?
+
 This specifies where to look or change to get certain behaviour from this component.
+The main configuration file for this component is uaa.yml file. There are over 11 uaa.yml files within the ras-authenticate
+folder. The one to use is in:
+
+    /ras-authentication/ras-config/uaa.yml
+
+2) How do I add users to my base config so that I can test a new user?
+
+Update the users section of the yml file with users you wish to be on the system within the /ras-config/uaa.yml file.
+
+    scim:
+      users:
+        - paul|wombat|paul@test.org|Paul|Smith|uaa.admin
+        - stefan|wallaby|stefan@test.org|Stefan|Schmidt
 
 
 
 ### Config For Zuul (ras-gateway)
 
 This specifies where to look or change to get certain behaviour from this component.
+
+1) Can I manually force a path to be routed through Zuul for testing?
+
+
+2) What is the main config file to control this component?
+
+
+
 
 
