@@ -38,8 +38,6 @@ services:
   ras-registry:
     build: 
       context: ras-registry
-    environment:
-      - server.port=8080
     networks:
       - ras
   ras-config:
