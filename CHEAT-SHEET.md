@@ -105,6 +105,25 @@ Update the users section of the yml file with users you wish to be on the system
 
 
 
+3) What is the API endpoint to authenticate a user?
+
+
+
+4) How to I check that those users exist and are working properly?
+
+
+
+
+5) What do I get in a response to the UAA if the user is not on the system?
+
+
+
+
+
+
+
+
+
 ### Config For Zuul (ras-gateway)
 
 This specifies where to look or change to get certain behaviour from this component.
