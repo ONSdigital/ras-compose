@@ -84,7 +84,16 @@ or:
 	Hello, World from the Frontstage!
 
 
+6) How do I stop a specific container?
+
+Find out the container name or ID with /> docker ps . Once you have this use the name to stop just that container. e.g.
+If I want to stop the ras frontstage on my machine I would do:
+
+    /> docker stop rascompose_ras-frontstage_1
+
+
 ### Config For UUA (ras-authentication)
+
 
 1) Where is the main config file for UAA?
 
