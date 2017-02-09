@@ -2,7 +2,7 @@ version: '2'
 services:
   ras-frontstage:
     build:
-      context: https://github.com/ONSdigital/ras-frontstage.git
+      context: ras-frontstage
     ports:
       - "5000:5000"
     networks:

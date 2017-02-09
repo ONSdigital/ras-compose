@@ -55,7 +55,7 @@ IP and network gateway. You need to know the name of the container. e.g. contain
 
 4) How do I find out the IP address of a docker container from within the container?
 
-You can just ping the container or orther containers from within the container. So if you were on a shell prompt from
+You can just ping the container or other containers from within the container. So if you were on a shell prompt from
 within the container you could do:
 
 	/> ping foo-bar

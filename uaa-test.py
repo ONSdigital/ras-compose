@@ -105,7 +105,7 @@ headers = {'content-type': 'application/x-www-form-urlencoded'}
 authorisation = ('cf', '')
 
 
-print  "\n\n****************************\n****** Starting Test  ******\n**** Check Server Is OK ****\n****************************"
+print  "\n\n****************************\n****** Starting Test  ******\n**** Check Server Is OK ***q*\n****************************"
 
 try:
     #uaa_response = requests.post(UAAurl, params=params, json=data)s = requests.session()
