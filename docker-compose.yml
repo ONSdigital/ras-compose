@@ -1,5 +1,6 @@
 version: '2'
 services:
+  # Our frontstage machine which is responsible for delivering the correct Electronic Questionarie (EQ)
   ras-frontstage:
     build:
       context: ras-frontstage
@@ -7,14 +8,20 @@ services:
       - "5000:5000"
     networks:
       - ras
+
+  # This is our first micro service. This docker image will run a pring boot application to show a micro serivce
+  # register with Zuul via Eurika and Authenticate 'tokens' with our UAA.
   ras-respondent:
     build: 
       context: ras-respondent
+    ports:
+      - "8081:8080"
     environment:
       - server.port=8080
       - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
     networks:
       - ras
+  # This is effectively our ZUUL gatway. It routes requests to micro services.
   ras-gateway:
     build: 
       context: ras-gateway
@@ -25,8 +32,11 @@ services:
       - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
     networks:
       - ras
+
+  # Our authentication server is our UAA. It is effectively an OAuth2 server for Authorisation and OpenID server for
+  # Authentication... I hope! :-)
   ras-authentication:
-    build: 
+    build:
       context: ras-authentication
     ports:
       - "8888:8080"
@@ -35,6 +45,8 @@ services:
       - CLOUD_FOUNDRY_CONFIG_PATH=/ras-config
     networks:
       - ras
+
+  # Our Eurika resistry.
   ras-registry:
     build: 
       context: ras-registry
