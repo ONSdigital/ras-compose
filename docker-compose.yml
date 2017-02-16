@@ -47,6 +47,12 @@ services:
       - server.port=8080
     networks:
       - ras
+  postgres:
+    image: postgres:9.6
+    ports:
+      - "5432:5432"
 
+    networks:
+      - ras
 networks:
   ras:
