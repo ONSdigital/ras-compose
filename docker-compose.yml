@@ -21,6 +21,7 @@ services:
       - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
     networks:
       - ras
+
   # This is effectively our ZUUL gatway. It routes requests to micro services.
   ras-gateway:
     build: 

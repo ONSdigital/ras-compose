@@ -152,9 +152,11 @@ for key in myUsers:
         HttpResponseDictionary = uaa_response.json()
 
         if 'access_token' in HttpResponseDictionary:
-            print "Got access token of: " + Bcolors.BOLD + HttpResponseDictionary['access_token'][0:10] + " ...... " + HttpResponseDictionary['access_token'][-10:] + Bcolors.ENDC
+#            print "Got access token of: " + Bcolors.BOLD + HttpResponseDictionary['access_token'][0:10] + " ...... " + HttpResponseDictionary['access_token'][-10:] + Bcolors.ENDC
+            print "Got access token of: " + Bcolors.BOLD + HttpResponseDictionary['access_token'] + " ...... " + HttpResponseDictionary['access_token'][-10:] + Bcolors.ENDC
             print "Got token type of: " + Bcolors.BOLD + HttpResponseDictionary['token_type'] + Bcolors.ENDC
-            print "Got refresh token of:" + Bcolors.BOLD + HttpResponseDictionary['refresh_token'][0:10] + " ...... " + HttpResponseDictionary['refresh_token'][-10:] + Bcolors.ENDC
+ #           print "Got refresh token of:" + Bcolors.BOLD + HttpResponseDictionary['refresh_token'][0:10] + " ...... " + HttpResponseDictionary['refresh_token'][-10:] + Bcolors.ENDC
+            print "Got refresh token of:" + Bcolors.BOLD + HttpResponseDictionary['refresh_token'] + " ...... " + HttpResponseDictionary['refresh_token'][-10:] + Bcolors.ENDC
             print "The refresh token expires in: " + Bcolors.BOLD +str(HttpResponseDictionary['expires_in']) + Bcolors.ENDC
             print "Got scope of: " + Bcolors.BOLD + HttpResponseDictionary['scope'] + Bcolors.ENDC
             print Bcolors.OKGREEN + "*** Test Passed OK ***" + Bcolors.ENDC
