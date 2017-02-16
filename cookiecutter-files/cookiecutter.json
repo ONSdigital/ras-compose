@@ -1,0 +1,13 @@
+{
+	"directory_name": "ras-collection-instrument",
+	"java_directory_name": "collection-instrument",   
+    "file_name": "collection_instrument",
+    "project_name":"collectionInstrument",
+    "author_name": "Auto Generated",
+    "description_status": "Interface to represent the service status",
+    "return_string": "Collection Instrument",
+    "application_name": "collectionInstrument",
+    "info_app_description":"Microservice for collection instrument",
+    "gradle_app_name":"collectionInstrument",
+    "gradle_app_version":"0.0.1"
+}
