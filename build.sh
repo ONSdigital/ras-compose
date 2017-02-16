@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-REPOS="ras-respondent ras-config ras-config-files ras-gateway ras-registry ras-authentication"
+REPOS="ras-respondent ras-gateway ras-registry ras-authentication" # Not currently used: ras-config ras-config-files
 PARENT=`pwd`
 
 
