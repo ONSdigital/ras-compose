@@ -1,8 +1,20 @@
 appdirs==1.4.0
+arrow==0.10.0
+binaryornot==0.4.0
+chardet==2.3.0
+click==6.7
+cookiecutter==1.5.1
+future==0.16.0
+Jinja2==2.9.5
+jinja2-time==0.2.0
+MarkupSafe==0.23
 packaging==16.8
 pkg-resources==0.0.0
-pyparsing==2.1.10
+poyo==0.4.0
+pyparsing==2.1.10 *
+python-dateutil==2.6.0
 PyYAML==3.12
-requests==2.13.0
+requests==2.13.0 *
 requests-toolbelt==0.7.0
 six==1.10.0
+whichcraft==0.4.0
