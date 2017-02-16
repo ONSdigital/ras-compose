@@ -3,6 +3,7 @@ services:
   # Our frontstage machine which is responsible for delivering the correct Electronic Questionarie (EQ)
   ras-frontstage:
     build:
+      #context: git@github.com:ONSdigital/ras-frontstage.git
       context: ras-frontstage
     ports:
       - "5000:5000"
