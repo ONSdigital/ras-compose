@@ -47,25 +47,30 @@ services:
     networks:
       - ras
 
-  # Our Eurika resistry.
+  # Our Eurieka resistry.
   ras-registry:
     build: 
       context: ras-registry
     networks:
       - ras
-  ras-config:
-    build: 
-      context: ras-config
-    environment: 
-      - server.port=8080
-    networks:
-      - ras
+
+  # Spring config server - not currently used.
+  #ras-config:
+  #  build: 
+  #    context: ras-config
+  #  environment: 
+  #    - server.port=8080
+  #  networks:
+  #    - ras
+
+  # Database container:
   postgres:
     image: postgres:9.6
     ports:
       - "5432:5432"
-
     networks:
       - ras
+
 networks:
   ras:
+
