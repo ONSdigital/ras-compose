@@ -48,6 +48,16 @@ services:
     networks:
       - ras
 
+  ras-collection-instrument:
+    build:
+      context: ras-collection-instrument
+    ports:
+      - "8070:8080"
+    environment:
+      - server.port=8080
+    networks:
+      - ras
+
   # Our Eurieka resistry.
   ras-registry:
     build: 
