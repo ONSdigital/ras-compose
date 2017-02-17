@@ -65,10 +65,13 @@ services:
   #    - ras
 
   # Database container:
+  # The defaut port to postgres DB is 5432. However some people have postgres running on their local machine, so we
+  # need to change our external port number to map our local port to the docker instance port. We are using 5431 until
+  # we here otherwise
   postgres:
     image: postgres:9.6
     ports:
-      - "5432:5432"
+      - "5431:5432"
     networks:
       - ras
 
