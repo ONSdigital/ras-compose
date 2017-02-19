@@ -1,14 +1,14 @@
 version: '2'
 services:
   # Our frontstage machine which is responsible for delivering the correct Electronic Questionarie (EQ)
-  # ras-frontstage:
-  #   build:
-  #     #context: git@github.com:ONSdigital/ras-frontstage.git
-  #     context: ras-frontstage
-  #   ports:
-  #     - "5000:5000"
-  #   networks:
-  #     - ras
+  ras-frontstage:
+    build:
+      #context: git@github.com:ONSdigital/ras-frontstage.git
+      context: ras-frontstage
+    ports:
+      - "5000:5000"
+    networks:
+      - ras
 
   # This is our first micro service. This docker image will run a pring boot application to show a micro serivce
   # register with Zuul via Eurika and Authenticate 'tokens' with our UAA.
@@ -26,29 +26,29 @@ services:
       - ras
 
   # This is effectively our ZUUL gatway. It routes requests to micro services.
-  # ras-gateway:
-  #   build:
-  #     context: ras-gateway
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     - server.port=8080
-  #     - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
-  #   networks:
-  #     - ras
+  ras-gateway:
+    build:
+      context: ras-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - server.port=8080
+      - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
+    networks:
+      - ras
 
   # Our authentication server is our UAA. It is effectively an OAuth2 server for Authorisation and OpenID server for
   # Authentication... I hope! :-)
-  # ras-authentication:
-  #   build:
-  #     context: ras-authentication
-  #   ports:
-  #     - "8888:8080"
-  #   environment:
-  #     - server.port=8080
-  #     - CLOUD_FOUNDRY_CONFIG_PATH=/ras-config
-  #   networks:
-  #     - ras
+  ras-authentication:
+    build:
+      context: ras-authentication
+    ports:
+      - "8888:8080"
+    environment:
+      - server.port=8080
+      - CLOUD_FOUNDRY_CONFIG_PATH=/ras-config
+    networks:
+      - ras
 
   ras-collection-instrument:
     build:
@@ -64,11 +64,14 @@ services:
       - ras
 
   # Our Eurieka resistry.
-  # ras-registry:
-  #   build:
-  #     context: ras-registry
-  #   networks:
-  #     - ras
+  ras-registry:
+    build:
+      context: ras-registry
+    ports:
+      # DEV_ONLY_REMOVE_FOR_PRODUCTION: Eureka UI
+      - "8761:8761"
+    networks:
+      - ras
 
   # Spring config server - not currently used.
   #ras-config:
@@ -83,12 +86,12 @@ services:
   # The defaut port to postgres DB is 5432. However some people have postgres running on their local machine, so we
   # need to change our external port number to map our local port to the docker instance port. We are using 5431 until
   # we here otherwise
-  # postgres:
-  #   image: postgres:9.6
-  #   ports:
-  #     - "5431:5432"
-  #   networks:
-  #     - ras
+  postgres:
+    image: postgres:9.6
+    ports:
+      - "5431:5432"
+    networks:
+      - ras
 
 networks:
   ras:
