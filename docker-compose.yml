@@ -13,10 +13,12 @@ services:
   # This is our first micro service. This docker image will run a pring boot application to show a micro serivce
   # register with Zuul via Eurika and Authenticate 'tokens' with our UAA.
   ras-respondent:
-    build: 
+    build:
       context: ras-respondent
     ports:
       - "8081:8080"
+      # DEV_ONLY_REMOVE_FOR_PRODUCTION: jdwp debug port
+      - "8000:8000"
     environment:
       - server.port=8080
       - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
@@ -25,7 +27,7 @@ services:
 
   # This is effectively our ZUUL gatway. It routes requests to micro services.
   ras-gateway:
-    build: 
+    build:
       context: ras-gateway
     ports:
       - "8080:8080"
@@ -53,23 +55,26 @@ services:
       context: ras-collection-instrument
     ports:
       - "8070:8080"
+      # DEV_ONLY_REMOVE_FOR_PRODUCTION: jdwp debug port
+      - "8001:8000"
     environment:
       - server.port=8080
+       - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
     networks:
       - ras
 
   # Our Eurieka resistry.
   ras-registry:
-    build: 
+    build:
       context: ras-registry
     networks:
       - ras
 
   # Spring config server - not currently used.
   #ras-config:
-  #  build: 
+  #  build:
   #    context: ras-config
-  #  environment: 
+  #  environment:
   #    - server.port=8080
   #  networks:
   #    - ras
@@ -87,4 +92,3 @@ services:
 
 networks:
   ras:
-
