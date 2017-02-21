@@ -1,14 +1,18 @@
 appdirs==1.4.0
 arrow==0.10.0
+behave==1.2.5
 binaryornot==0.4.0
 chardet==2.3.0
 click==6.7
 cookiecutter==1.5.1
+enum34==1.1.6
 future==0.16.0
 Jinja2==2.9.5
 jinja2-time==0.2.0
 MarkupSafe==0.23
 packaging==16.8
+parse==1.6.6
+parse-type==0.3.4
 pkg-resources==0.0.0
 poyo==0.4.0
 pyparsing==2.1.10 *
