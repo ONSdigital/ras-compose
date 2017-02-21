@@ -55,10 +55,9 @@ services:
       context: ras-collection-instrument
     ports:
       - "8070:8080"
-      # DEV_ONLY_REMOVE_FOR_PRODUCTION: jdwp debug port
-      - "8001:8000"
     environment:
       - server.port=8080
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/postgres
       - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
     networks:
       - ras
