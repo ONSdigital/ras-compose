@@ -15,6 +15,7 @@ The following components provide the functionality of the Respondent Account Ser
 
   * [ras-frontstage](https://github.com/ONSdigital/ras-frontstage) - this is a Python/Flask web application that provides the public user interface to the system.
   * [ras-respondent](https://github.com/ONSdigital/ras-respondent) - this is a basic Spring Boot microservice to receive calls from the front-end web application.
+  * [ras-collection-instrument](https://github.com/ONSdigital/ras-collection-instrument) - this is a first iteration of a service to manage survey collection instruments. This is a lightweight best-guess implementation because we'd like to demonstrate building a service that provides some business functionality. It will need to be revisited and iterated as the service develops and evolves.
 
 ### Supporting components
 
