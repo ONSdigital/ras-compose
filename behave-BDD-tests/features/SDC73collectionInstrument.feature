@@ -7,3 +7,11 @@ Feature: Collection Instrument (CI) Status
      When A request for status is given
      Then The CI micro service returns status information about itself
 
+
+  Scenario: Obtain a CI object
+    Given The database is populated with CI objects
+    When A request for the first CI with ID=1
+    Then check all parameters in the returned CI object are correct
+
+
+
