@@ -1,4 +1,4 @@
-__author__ = 'nherriot'
+__author__ = 'ltoozer'
 
 """CI Micro Service.
 
@@ -126,7 +126,9 @@ def step_impl(context):
     assert context.response.text == 'Invalid ID supplied'
 
 
-
+# **********************************************************************************************************************
+# ***************************** TODO Invent how to split up our test cases for readability *****************************
+# **********************************************************************************************************************
 
 @given('a collection instrument that does not exist')
 def step_impl(context):
