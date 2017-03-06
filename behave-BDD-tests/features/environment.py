@@ -1,4 +1,4 @@
-import psycopg2
+import psycopg2  # TODO: Should we be using SQLAlchemy instead?
 
 
 def before_all(context):
@@ -6,7 +6,7 @@ def before_all(context):
     # context.CIport = "8070"
     context.CIport = "5052"
 
-    # TODO: Associate db stuff only with steps that need it
+    # TODO: db cursor is created for each scenario at the moment! Should only trigger for steps that need it (behave tags?)
     context.connection = psycopg2.connect(
         dbname='postgres',
         user='ras_collection_instrument',
