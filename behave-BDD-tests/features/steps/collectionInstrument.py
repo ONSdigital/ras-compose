@@ -24,18 +24,26 @@ To run:
 
 
 
-before_tag(context, tag), after_tag(context, tag)
-These run before and after a section tagged with the given name. They are invoked for each tag
-encountered in the order they’re found in the feature file. See controlling things with tags.
+TODO:
+-   Lots of repetition inside then/when steps for GET - can these be moved to a common function or something similar?
+
+-   Only using a basic implementation of (jsonschema) validate. Could we validate on things like missing key, value length etc?
+
+-   Dynamically created collection instruments used in some tests are dependent on schema data being available in db. Is this
+    the best way to test, or do things need to be hard-coded instead?
+
+-   Do POST requests need to remove any rows created in schema after a scenario?
+
 """
 
 import requests
-# import psycopg2
 from behave import *
 from jsonschema import validate
 import ast
 
-
+# **********************************************************************************************************************
+# Scenario: CI Status Running
+# **********************************************************************************************************************
 @given('The CI status is active')
 def step_impl(context):
     CIendpoint = "/status"
@@ -57,6 +65,9 @@ def step_impl(context):
 
 
 
+# **********************************************************************************************************************
+# Scenario: Obtain Collection Instrument data
+# **********************************************************************************************************************
 @given('a valid collection instrument ID')
 def step_impl(context):
    context.cursor.execute(
@@ -75,12 +86,14 @@ def step_impl(context):
     url = context.CIdomain + context.CIport + CIendpoint + context.collection_instrument_id
     print("    *** The URL to go to is: " + url + " \n")
     context.response = requests.get(url)
+
     assert context.response.status_code == 200
-    assert context.response.headers['Content-Type'] == 'collection/json'
+    assert context.response.headers['Content-Type'] == 'collection+json'
 
 
 @then('check the returned data is correct')
 def step_impl(context):
+
     schema_definition = {
         "type": "object",
         "properties": {
@@ -97,40 +110,99 @@ def step_impl(context):
             }
         }
     }
-    # TODO: Is there a way to ensure all keys are present as well?
-    # TODO: Currently, the response is in unicode - do we need to validate in ASCII?
     response_text = ast.literal_eval(context.response.text)
     response_json = response_text[0]
     validate(response_json, schema_definition)
 
 
-
-@given('an incorrect collection instrument ID')
+# **********************************************************************************************************************
+# Scenario: Collection Instrument ID domain name is incorrect
+# **********************************************************************************************************************
+@given('a collection instrument ID with an incorrect domain name')
 def step_impl(context):
-    context.CI_ID = "this:is:a:bad:CI:ID"
+    incorrect_domain_name = "ons.gov.us"
+    context.CI_ID = "urn:" + incorrect_domain_name + ":id:ci:001.001.00001"
     print ("    *** The invalid CI ID is: " + context.CI_ID + " \n")
 
 
-@when('a request is made for the collection instrument data using this ID')
+@when('a request is made for the collection instrument using the ID with the incorrect domain name')
 def step_impl(context):
     CIendpoint = "/collectioninstrument/id/"
     CIurl = context.CIdomain + context.CIport + CIendpoint + context.CI_ID
     print("    *** The URL to go to is:" + CIurl + " \n")
     context.response = requests.get(CIurl)
+
     assert context.response.status_code == 400
+    assert context.response.headers['Content-Type'] == 'text/html; charset=utf-8'
 
 
-@then('information is returned saying the ID is invalid')
+@then('information is returned saying the ID with the incorrect domain name is invalid')
 def step_impl(context):
     print("    *** Response is: ", context.response.text, "\n")
     assert context.response.text == 'Invalid ID supplied'
 
 
 # **********************************************************************************************************************
-# ***************************** TODO Invent how to split up our test cases for readability *****************************
+# Scenario: Collection Instrument ID number value is incorrect
 # **********************************************************************************************************************
+@given('a collection instrument ID with an incorrect number')
+def step_impl(context):
+    incorrect_number = "000000"
+    context.CI_ID = "urn:ons.gov.uk:id:ci:" + incorrect_number
+    print ("    *** The invalid CI ID is: " + context.CI_ID + " \n")
 
-@given('a collection instrument that does not exist')
+
+@when('a request is made for the collection instrument using the ID with the incorrect number')
+def step_impl(context):
+    CIendpoint = "/collectioninstrument/id/"
+    CIurl = context.CIdomain + context.CIport + CIendpoint + context.CI_ID
+    print("    *** The URL to go to is:" + CIurl + " \n")
+    context.response = requests.get(CIurl)
+
+    assert context.response.status_code == 400
+    assert context.response.headers['Content-Type'] == 'text/html; charset=utf-8'
+
+
+@then('information is returned saying the ID with the incorrect number is invalid')
+def step_impl(context):
+    print("    *** Response is: ", context.response.text, "\n")
+    assert context.response.text == 'Invalid ID supplied'
+
+
+# **********************************************************************************************************************
+# Scenario: Collection Instrument ID type name is incorrect
+# **********************************************************************************************************************
+@given('a collection instrument ID with an incorrect type name')
+def step_impl(context):
+    incorrect_type_name = "XX"
+    context.CI_ID = "urn:ons.gov.uk:id:" + incorrect_type_name + ":001.001.00001"
+    print ("    *** The invalid CI ID is: " + context.CI_ID + " \n")
+
+
+@when('a request is made for the collection instrument using the ID with the incorrect type name')
+def step_impl(context):
+    CIendpoint = "/collectioninstrument/id/"
+    CIurl = context.CIdomain + context.CIport + CIendpoint + context.CI_ID
+    print("    *** The URL to go to is:" + CIurl + " \n")
+    context.response = requests.get(CIurl)
+
+    assert context.response.status_code == 400
+    assert context.response.headers['Content-Type'] == 'text/html; charset=utf-8'
+
+
+@then('information is returned saying the ID with the incorrect type name is invalid')
+def step_impl(context):
+    print("    *** Response is: ", context.response.text, "\n")
+    assert context.response.text == 'Invalid ID supplied'
+
+
+
+
+
+# **********************************************************************************************************************
+# Scenario: Collection Instrument is not found
+# **********************************************************************************************************************
+@given('a collection instrument ID that does not exist')
 def step_impl(context):
     context.cursor.execute("SELECT content "
                   "FROM ras_collection_instruments "
@@ -145,13 +217,15 @@ def step_impl(context):
     print('    *** The CI to find is: ' + context.collection_instrument_id)
 
 
-@when('a request is made for the collection instrument data using its ID')
+@when('a request is made for the collection instrument data using its ID which does not exist')
 def step_impl(context):
     CIendpoint = "/collectioninstrument/id/"
     CIurl = context.CIdomain + context.CIport + CIendpoint + context.collection_instrument_id
     print("    *** The URL to go to is:" + CIurl + " \n")
     context.response = requests.get(CIurl)
+
     assert context.response.status_code == 404
+    assert context.response.headers['Content-Type'] == 'text/html; charset=utf-8'
 
 
 @then('information is returned saying the collection instrument is not found')
@@ -161,12 +235,17 @@ def step_impl(context):
 
 
 
+
+
+# **********************************************************************************************************************
+# Scenario: Create a new collection instrument
+# **********************************************************************************************************************
 @given('a new collection instrument')
 def step_impl(context):
     context.new_CI = {
         "reference": "test-collection-instrument",
-        "surveyId": "urn:ons.gov.uk:id:survey:001.001.00001",
-        "id": "urn:ons.gov.uk:id:ci:001.001.00001",
+        "surveyId": "urn:ons.gov.uk:id:survey:999.001.00001",
+        "id": "urn:ons.gov.uk:id:ci:999.001.00001",
         "ciType": "OFFLINE",
         "classifiers": {
             "RU_REF": "01234567890"
@@ -176,12 +255,14 @@ def step_impl(context):
 
 @when('a request is made to create the collection instrument')
 def step_impl(context):
-    CIendpoint = "/collectioninstrument"
+    CIendpoint = "/collectioninstrument/"
     CIurl = context.CIdomain + context.CIport + CIendpoint
     print("    *** The URL to go to is: " + CIurl + "\n")
     headers = {'Content-type': 'application/json'}
     context.response = requests.post(CIurl, json=context.new_CI, headers=headers)
+
     assert context.response.status_code == 201
+    assert context.response.headers['Content-Type'] == 'text/html; charset=utf-8'
 
 
 @then('the collection instrument is created successfully')
