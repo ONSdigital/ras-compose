@@ -92,6 +92,15 @@ If I want to stop the ras frontstage on my machine I would do:
     /> docker stop rascompose_ras-frontstage_1
 
 
+7) Docker images are taking up all my disk space how do I fix this?
+
+    #!/bin/bash
+    # Delete all containers
+    /> docker rm $(docker ps -a -q)
+
+    # Delete all images
+    /> docker rmi $(docker images -q)
+
 ### Config For UUA (ras-authentication)
 
 
