@@ -41,7 +41,9 @@ The system should output something like:
 		    *** Response is:  Collection Instrument service is running
 		    Then The CI micro service returns status information about itself # steps/collectionInstrument.py:47 0.000s
 
+You can optionally skip tests marked as Work In Progress (WIP) by running:
 
+    /> behave --tags=-wip collectionInstrument.feature
 
 # Creating Tests
 

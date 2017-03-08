@@ -2,9 +2,9 @@ import psycopg2  # TODO: Should we be using SQLAlchemy instead?
 
 
 def before_all(context):
-    context.CIdomain = "http://127.0.0.1:"
-    # context.CIport = "8070"
-    context.CIport = "5052"
+    context.ci_domain = "http://127.0.0.1:"
+    # context.ci_port = "8070"
+    context.ci_port = "5052"
 
     # TODO: db cursor is created for each scenario at the moment! Should only trigger for steps that need it (behave tags?)
     context.connection = psycopg2.connect(
