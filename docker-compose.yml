@@ -49,6 +49,14 @@ services:
     networks:
       - ras
 
+  django-oauth2-test:
+    build:
+      context: django-oauth2-test
+    ports:
+      - "8040:8040"
+    networks:
+      - ras
+
   ras-collection-instrument:
     build:
       context: ras-collection-instrument
