@@ -34,7 +34,33 @@ def before_scenario(context, scenario):
         )
         context.cursor = context.connection.cursor()
 
+    steps_list = [step.name for step in scenario.steps]
+    for step in steps_list:
+        if 'Collection Instrument ID' in step:
+            context.db_table_column = 'urn'
+            context.endpoint_parameter = '/id/'
+            context.urn_id = 'ci'
+            break
+        elif 'Survey ID' in step:
+            context.db_table_column = 'survey_urn'
+            context.endpoint_parameter = '/surveyid/'
+            context.urn_id = 'surveyid'
+            break
+        elif 'Reference' in step:
+            context.db_table_column = 'content'
+            context.db_row_content_key = 'reference'
+            context.endpoint_parameter = '/reference/'
+            break
+        elif 'Classifier' in step:
+            context.db_table_column = 'content'
+            context.db_row_content_key = 'classifiers'
+            context.endpoint_parameter = '/?classifier='
+            break
+
 
 def after_scenario(context, scenario):
     if 'connect_to_database' in scenario.tags:
+        if context.failed:
+            context.connection.rollback()
+        context.connection.commit()
         context.connection.close()

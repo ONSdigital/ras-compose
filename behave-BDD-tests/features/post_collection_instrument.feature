@@ -1,0 +1,1 @@
+Feature: Handle storing of Collection Instrument data
