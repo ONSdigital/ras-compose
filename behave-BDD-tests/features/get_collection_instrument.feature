@@ -23,17 +23,17 @@ Feature: Handle retrieval of Collection Instrument data
 # ----------------------------------------------------------------------------------------------------------------------
 # Collection Instrument file by valid identifier
 # ----------------------------------------------------------------------------------------------------------------------
-  @connect_to_database
-  Scenario Outline: Get collection instrument data by valid identifier
-    Given a valid <identifier_type>
-    When a request is made for the collection instrument data
-    Then check the returned data are correct
-    And the response status code is <status_code>
-    And the response returns an e-tag
-
-    Examples:
-        | identifier_type           | status_code |
-        | Collection Instrument ID  | 200         |
+#  @connect_to_database
+#  Scenario Outline: Get collection instrument file by valid identifier
+#    Given a valid <identifier_type>
+#    When a request is made for the collection instrument data
+#    Then check the returned data are correct
+#    And the response status code is <status_code>
+#    And the response returns an e-tag
+#
+#    Examples:
+#        | identifier_type           | status_code |
+#        | Collection Instrument ID  | 200         |
 
 
 
