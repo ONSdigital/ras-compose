@@ -95,12 +95,12 @@ Feature: Handle retrieval of Collection Instrument data
     And the response returns an ETag
     When the new collection instrument has been removed
     And a request is made for the collection instrument data
-    Then information is returned saying "<text>"
+    Then information is returned saying "Collection instrument not found"
     And the response status code is 404
 
     Examples:
-      | identifier_type           | text                            |
-      | Collection Instrument ID  | Collection instrument not found |
-      | Survey ID                 | Collection instrument not found |
-      | Reference                 | Collection instrument not found |
-      | Classifier                | Collection instrument not found |
+      | identifier_type           |
+      | Collection Instrument ID  |
+      | Survey ID                 |
+      | Reference                 |
+      | Classifier                |
