@@ -7,8 +7,8 @@ Most of the context variables in this file are set up in environment.py.
 from psycopg2 import IntegrityError
 import ast
 import jsonschema
-from psycopg2.extensions import AsIs
 import requests
+from psycopg2.extensions import AsIs
 from behave import given, then, when
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -47,28 +47,44 @@ def step_impl(context):
     assert context.cursor.rowcount > 0
 
 
-
-
-
 @given('a {identifier_type} of "{identifier}"')
 def step_impl(context, identifier_type, identifier):
-    # Ensure passed in id doesn't already exist?
-    # sql_body = """
-    #      SELECT EXISTS (
-    #          SELECT *
-    #          FROM ras_collection_instrument.ras_collection_instruments
-    #          WHERE %s = %s
-    #          )
-    #  """
-    # context.cursor.execute(sql_body, (AsIs(context.db_table_column), identifier))
-    # identifier_exists = context.cursor.fetchone()[0]
-    # assert identifier_exists is False
     context.identifier = identifier
+
+
+@given('one or more collection instruments exist')
+def step_impl(context):
+    sql_body = """
+        SELECT EXISTS (
+            SELECT *
+            FROM ras_collection_instrument.ras_collection_instruments
+        )
+    """
+    context.cursor.execute(sql_body,)
+    identifier_exists = context.cursor.fetchone()[0]
+    assert identifier_exists is True
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 # 'when' steps
 # ----------------------------------------------------------------------------------------------------------------------
+@when('a request is made for the collection instrument data')
+def step_impl(context):
+    ci_endpoint = "/collectioninstrument" + context.endpoint_parameter
+    url = context.ci_domain + context.ci_port + ci_endpoint + context.identifier
+    context.response = requests.get(url, headers=context.valid_authorisation_header)
+    print(url)
+
+
+#TODO: This is very similar to "a request is made for the collection instrument data".
+@when('a request is made for one or more collection instrument data')
+def step_impl(context):
+    ci_endpoint = "/collectioninstrument"
+    url = context.ci_domain + context.ci_port + ci_endpoint
+    context.response = requests.get(url, headers=context.valid_authorisation_header)
+    print(url)
+
+
 @when('the new collection instrument has been removed')
 def step_impl(context):
     delete_body = """
@@ -79,14 +95,6 @@ def step_impl(context):
     context.cursor.execute(delete_body, (col, context.identifier))
     context.connection.commit() if context.cursor.rowcount == 1 else context.connection.rollback()
     assert context.cursor.rowcount == 1
-
-
-@when('a request is made for the collection instrument data')
-def step_impl(context):
-    ci_endpoint = "/collectioninstrument" + context.endpoint_parameter
-    url = context.ci_domain + context.ci_port + ci_endpoint + context.identifier
-    context.response = requests.get(url, headers=context.valid_authorisation_header)
-    print(url)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

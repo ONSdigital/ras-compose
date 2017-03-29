@@ -5,7 +5,7 @@ Most of the context variables in this file are set up in environment.py.
 """
 # TODO: Check content-type assertions. Should these all be in the format of 'application/vnd.ons.<type>'?
 
-from behave import given, then, when
+from behave import given, then
 from psycopg2.extensions import AsIs
 
 
@@ -48,5 +48,3 @@ def step_impl(context, text):
     print("Expected text is: " + text)
     assert context.response.text == text
     assert context.response.headers['Content-Type'] == 'text/html; charset=utf-8'
-
-

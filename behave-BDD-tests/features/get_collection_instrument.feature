@@ -3,6 +3,22 @@ Feature: Handle retrieval of Collection Instrument data
 # This feature file is now more geared towards the more technical side of the testing (using URNs, HTTP status codes
 # etc). These URNs & codes could be moved to the steps implementation instead, so that this feature remains more high level.
 
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Available collection instruments
+# ----------------------------------------------------------------------------------------------------------------------
+  @connect_to_database
+  Scenario: Get collection instrument data
+    Given one or more collection instruments exist
+    When a request is made for one or more collection instrument data
+    Then check the returned data are correct
+    And the response status code is 200
+
+
+#TODO: searchString, skip (pagination), and limit records test to go here!
+
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Collection Instrument data by valid identifier
 # ----------------------------------------------------------------------------------------------------------------------
@@ -86,7 +102,7 @@ Feature: Handle retrieval of Collection Instrument data
 # Collection Instrument by valid identifiers (end-to-end test)
 # ----------------------------------------------------------------------------------------------------------------------
   @connect_to_database
-  Scenario Outline: Get new collection instrument data
+  Scenario Outline: Get collection instrument data end-to-end
     Given a new collection instrument has been created
     And the <identifier_type> of the new collection instrument
     When a request is made for the collection instrument data
