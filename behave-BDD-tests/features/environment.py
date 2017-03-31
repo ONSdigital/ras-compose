@@ -3,6 +3,12 @@ import json
 
 
 def before_feature(context, feature):
+    """Set up context variables in Behave step files before a feature file is executed.
+    
+    :param context: Behave object used in scope of feature
+    :param feature: Behave mandatory argument
+    :return: None
+    """
     # Dev endpoint setup
     context.ci_domain = "http://127.0.0.1:"
     context.ci_port = "5052"
@@ -17,6 +23,12 @@ def before_feature(context, feature):
 
 
 def before_scenario(context, scenario):
+    """Set up context variables in Behave step files before a scenario is executed.
+    
+    :param context: Behave object used in scope of scenario
+    :param scenario: Behave mandatory argument
+    :return: None
+    """
     if 'connect_to_database' in scenario.tags:
         context.connection = psycopg2.connect(
             dbname='postgres',
@@ -52,14 +64,28 @@ def before_scenario(context, scenario):
 
 
 def after_scenario(context, scenario):
+    """Tear down/rollback context variables and db transactions in Behave step files after a scenario is executed.
+    
+    :param context: Behave object used in scope of scenario
+    :param scenario: Behave mandatory argument
+    :return: None
+    """
+    # TODO: Persistence problems for each scenario! Would it be best to drop/create entire db for startup/teardown instead?
     if 'connect_to_database' in scenario.tags:
         if context.failed:
             context.connection.rollback()
         context.connection.commit()
         context.connection.close()
 
+
 # TODO: Could this be moved to before_scenario instead?
 def before_step(context, step):
+    """Set up context variables in Behave step files before a step is executed.
+    
+    :param context: Behave object used in scope of step
+    :param step: Behave mandatory argument
+    :return: 
+    """
     step_name = step.name
     if 'Collection Instrument ID' in step_name:
         context.db_table_column = 'urn'

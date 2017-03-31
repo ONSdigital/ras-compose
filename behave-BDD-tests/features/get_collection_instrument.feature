@@ -3,25 +3,16 @@ Feature: Handle retrieval of Collection Instrument data
 # This feature file is now more geared towards the more technical side of the testing (using URNs, HTTP status codes
 # etc). These URNs & codes could be moved to the steps implementation instead, so that this feature remains more high level.
 
-
-# ----------------------------------------------------------------------------------------------------------------------
-# Available collection instruments
-# ----------------------------------------------------------------------------------------------------------------------
   @connect_to_database
-  Scenario: Get collection instrument data
+  Scenario: Get all available collection instrument data
     Given one or more collection instruments exist
     When a request is made for one or more collection instrument data
     Then check the returned data are correct
     And the response status code is 200
 
-
-#TODO: searchString, skip (pagination), and limit records test to go here!
-
+  #TODO: searchString, skip (pagination), and limit records test to go here!
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Collection Instrument data by valid identifier
-# ----------------------------------------------------------------------------------------------------------------------
   @connect_to_database
   Scenario Outline: Get collection instrument data by valid identifier
     Given a valid <identifier_type>
@@ -38,26 +29,6 @@ Feature: Handle retrieval of Collection Instrument data
         | Classifier                |
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Collection Instrument file by valid identifier
-# ----------------------------------------------------------------------------------------------------------------------
-#  @connect_to_database
-#  Scenario Outline: Get collection instrument file by valid identifier
-#    Given a valid <identifier_type>
-#    When a request is made for the collection instrument data
-#    Then check the returned data are correct
-#    And the response status code is <status_code>
-#    And the response returns an ETag
-#
-#    Examples:
-#        | identifier_type           | status_code |
-#        | Collection Instrument ID  | 200         |
-
-
-
-# ----------------------------------------------------------------------------------------------------------------------
-# Collection Instrument data by incorrect identifier
-# ----------------------------------------------------------------------------------------------------------------------
   @connect_to_database
   Scenario Outline: Get collection instrument data by incorrect identifier
     Given a <identifier_type> of "<identifier>"
@@ -98,9 +69,6 @@ Feature: Handle retrieval of Collection Instrument data
         | Classifier                | {'TEST_UNKNOWN_CLASSIFIER_NAME':'ABC'}        | Collection instrument not found | 404         |
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Collection Instrument by valid identifiers (end-to-end test)
-# ----------------------------------------------------------------------------------------------------------------------
   @connect_to_database
   Scenario Outline: Get collection instrument data end-to-end
     Given a new collection instrument has been created
@@ -120,3 +88,18 @@ Feature: Handle retrieval of Collection Instrument data
       | Survey ID                 |
       | Reference                 |
       | Classifier                |
+
+
+  @connect_to_database
+  Scenario: Get collection instrument file by valid identifier end-to-end
+    Given a valid "Collection Instrument ID"
+#    And an ETag for the collection instrument    # TODO: Should this test a cached ETag for HTTP header?
+    And a binary collection instrument to add
+    When a request is made to add the binary collection instrument
+    Then information is returned saying "item updated"
+    And the response status code is 201
+    And the response returns an ETag
+    When a request is made for the collection instrument file
+    Then the response status code is 200
+    And the response returns an ETag
+    And the returned binary collection instrument matches the file that was added

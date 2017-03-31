@@ -1,9 +1,6 @@
 Feature: Handle storing of Collection Instrument data
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Post valid Collection Instrument data
-# ----------------------------------------------------------------------------------------------------------------------
   Scenario: Post valid collection instrument
     Given a new collection instrument
     When a request is made to create the collection instrument
@@ -13,9 +10,6 @@ Feature: Handle storing of Collection Instrument data
     And information is returned saying "item created"
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Post invalid Collection Instrument data
-# ----------------------------------------------------------------------------------------------------------------------
   Scenario: Post invalid collection instrument data
     Given an incorrectly formed collection instrument
     When a request is made to create the collection instrument
@@ -23,9 +17,6 @@ Feature: Handle storing of Collection Instrument data
     And the response status code is 400
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Post existing Collection Instrument data
-# ----------------------------------------------------------------------------------------------------------------------
   @connect_to_database
   Scenario: Post collection instrument data that already exists
     Given a new collection instrument that already exists
