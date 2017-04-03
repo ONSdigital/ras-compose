@@ -6,7 +6,7 @@ def before_feature(context, feature):
     """Set up context variables in Behave step files before a feature file is executed.
     
     :param context: Behave object used in scope of feature
-    :param feature: Behave mandatory argument
+    :param feature: Behave mandatory param
     :return: None
     """
     # Dev endpoint setup
@@ -18,7 +18,7 @@ def before_feature(context, feature):
     context.valid_authorisation_header = {'authorization': valid_jwt}
 
     # Schema def
-    with open('../ras-collection-instrument/schema.json') as schema:
+    with open('features/resources/schema.json') as schema:
         context.schema_definition = json.load(schema)
 
 
@@ -26,7 +26,7 @@ def before_scenario(context, scenario):
     """Set up context variables in Behave step files before a scenario is executed.
     
     :param context: Behave object used in scope of scenario
-    :param scenario: Behave mandatory argument
+    :param scenario: Behave mandatory param
     :return: None
     """
     if 'connect_to_database' in scenario.tags:
@@ -67,7 +67,7 @@ def after_scenario(context, scenario):
     """Tear down/rollback context variables and db transactions in Behave step files after a scenario is executed.
     
     :param context: Behave object used in scope of scenario
-    :param scenario: Behave mandatory argument
+    :param scenario: Behave mandatory param
     :return: None
     """
     # TODO: Persistence problems for each scenario! Would it be best to drop/create entire db for startup/teardown instead?
@@ -83,7 +83,7 @@ def before_step(context, step):
     """Set up context variables in Behave step files before a step is executed.
     
     :param context: Behave object used in scope of step
-    :param step: Behave mandatory argument
+    :param step: Behave mandatory param
     :return: 
     """
     step_name = step.name

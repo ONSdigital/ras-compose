@@ -18,32 +18,28 @@ system should say 'No steps in directory'.
 
 # Running Tests
 
-To run tests go to the features directory which is one step below the current one where this file is contained.
-Run the command:
+To run all tests, go to the `behave-BDD-tests` directory and run the command:
 
-	/> behave collectionInstrument.feature
+	/> behave
 
 The system should output something like:
+    
+    ...
+    
+    Feature: Handle retrieval of Collection Instrument data # features/get_collection_instrument.feature:1
+    
+      @connect_to_database
+      Scenario: Get all available collection instrument data              # features/get_collection_instrument.feature:7
+        Given one or more collection instruments exist                    # features/steps/steps.py:77 0.002s
+        When a request is made for one or more collection instrument data # features/steps/steps.py:151 185.385s
+        Then check the returned data are correct                          # features/steps/steps.py:226 0.169s
+        And the response status code is 200                               # features/steps/steps.py:209 0.000s
+    
+    ...
 
+You can optionally run individual features by running:
 
-		Feature: Collection Instrument (CI) Status # collectionInstrument.feature:1
-		  In order to request CI data the CI micro service
-		  must be running and responding to status requests.
-		  Scenario: CI Status Running                                         # collectionInstrument.feature:5
-		    Given The CI status is active                                     # steps/collectionInstrument.py:30
-		    *** The URL to go to is:http://127.0.0.1:8070/status
-		    Given The CI status is active                                     # steps/collectionInstrument.py:30 0.011s
-		    When A request for status is given                                # steps/collectionInstrument.py:41
-		    *** HTT Response code is: 200
-
-		    When A request for status is given                                # steps/collectionInstrument.py:41 0.000s
-		    Then The CI micro service returns status information about itself # steps/collectionInstrument.py:47
-		    *** Response is:  Collection Instrument service is running
-		    Then The CI micro service returns status information about itself # steps/collectionInstrument.py:47 0.000s
-
-You can optionally skip tests marked as Work In Progress (WIP) by running:
-
-    /> behave --tags=-wip collectionInstrument.feature
+    /> behave <http_method_name>_collection_instrument.feature
 
 # Creating Tests
 
