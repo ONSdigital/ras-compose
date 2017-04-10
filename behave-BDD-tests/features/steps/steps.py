@@ -126,16 +126,6 @@ def step_impl(context):
     raise NotImplementedError('STEP: Given an invalid ETag. ETag not currently stored.')
 
 
-@when('a request is made for the collection instrument file')
-def step_impl(context):
-    raise NotImplementedError('STEP: When a request is made for the collection instrument file')
-
-
-@then('the returned binary collection instrument matches the file that was added')
-def step_impl(context):
-    raise NotImplementedError('STEP: Then the returned binary collection instrument matches the file that was added')
-
-
 # ----------------------------------------------------------------------------------------------------------------------
 # 'when' steps
 # ----------------------------------------------------------------------------------------------------------------------
@@ -203,6 +193,11 @@ def step_impl(context):
     assert context.cursor.rowcount == 1
 
 
+@when('a request is made for the collection instrument file')
+def step_impl(context):
+    raise NotImplementedError('STEP: When a request is made for the collection instrument file')
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Common 'then' steps
 # ----------------------------------------------------------------------------------------------------------------------
@@ -250,3 +245,8 @@ def step_impl(context):
 @then('the response returns the location for the data')
 def step_impl(context):
     assert context.ci_domain + context.ci_port in context.response.headers['Location']  #TODO: Improve this assertion
+
+
+@then('the returned binary collection instrument matches the file that was added')
+def step_impl(context):
+    raise NotImplementedError('STEP: Then the returned binary collection instrument matches the file that was added')
