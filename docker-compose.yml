@@ -6,7 +6,7 @@ services:
       #context: git@github.com:ONSdigital/ras-frontstage.git
       context: ras-frontstage
     ports:
-      - "5000:5000"
+      - "5001:5001"
     networks:
       - ras
 
