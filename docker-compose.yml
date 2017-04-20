@@ -10,6 +10,14 @@ services:
     networks:
       - ras
 
+  ras-party:
+    build:
+      #context: git@github.com:ONSdigital/ras-party.git
+      context: ras-party
+    ports:
+      - "5062:5062"
+    networks:
+      - ras
 
   django-oauth2-test:
     build:
