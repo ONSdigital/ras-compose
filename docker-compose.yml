@@ -6,7 +6,7 @@ services:
       #context: git@github.com:ONSdigital/ras-frontstage.git
       context: ras-frontstage
     ports:
-      - "5001:5001"
+      - "5101:5001"
     networks:
       - ras
 
@@ -15,7 +15,7 @@ services:
       #context: git@github.com:ONSdigital/ras-party.git
       context: ras-party
     ports:
-      - "5062:5062"
+      - "5162:5062"
     networks:
       - ras
 
@@ -31,7 +31,7 @@ services:
     build:
       context: ras-collection-instrument
     ports:
-      - "5052:5052"
+      - "5152:5052"
     environment:
       - spring.datasource.url=jdbc:postgresql://postgres:5432/postgres
       - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
