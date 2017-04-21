@@ -23,7 +23,7 @@ services:
     build:
       context: django-oauth2-test
     ports:
-      - "8040:8040"
+      - "8140:8040"
     networks:
       - ras
 
