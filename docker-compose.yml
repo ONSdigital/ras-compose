@@ -7,6 +7,11 @@ services:
       context: ras-frontstage
     ports:
       - "5101:5001"
+    environment:
+      - OAUTHLIB_INSECURE_TRANSPORT=1
+      - APP_SETTINGS=config.Config
+
+
     networks:
       - ras
 
