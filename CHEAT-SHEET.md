@@ -101,6 +101,19 @@ If I want to stop the ras frontstage on my machine I would do:
     # Delete all images
     /> docker rmi $(docker images -q)
 
+   # Delete all ras images only (Use with care and understand the
+   # implications of this pattern match
+
+   />docker rmi $(docker images | grep "^ras" | awk "{print $3}")#
+   Delete all ras images only (Use with care and understand the
+   implications of this pattern match
+
+   />docker rmi $(docker images | grep "^ras" | awk "{print $3}")#
+   Delete all ras images only (Use with care and understand the
+   implications of this pattern match
+
+   />docker rmi $(docker images | grep "^ras" | awk "{print $3}")
+
 ### Config For UUA (ras-authentication)
 
 
