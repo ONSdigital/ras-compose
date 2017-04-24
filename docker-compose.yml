@@ -10,6 +10,13 @@ services:
     environment:
       - OAUTHLIB_INSECURE_TRANSPORT=1
       - APP_SETTINGS=config.Config
+      - ONS_OAUTH_SERVER=django-oauth2-test:8040
+      - RAS_FRONTSTAGE_CLIENT_ID=ons@ons.gov
+      - RAS_FRONTSTAGE_CLIENT_SECRET=password
+      - ONS_AUTHORIZATION_ENDPOINT=/web/authorize/
+      - ONS_TOKEN_ENDPOINT=/api/v1/tokens/
+      - ONS_ADMIN_ENDPOINT=/api/account/create
+      - ONS_OAUTH_PROTOCOL=http://
 
 
     networks:
