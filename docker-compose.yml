@@ -8,17 +8,30 @@ services:
     ports:
       - "5101:5001"
     environment:
-      - OAUTHLIB_INSECURE_TRANSPORT=1
-      - APP_SETTINGS=config.Config
-      - ONS_OAUTH_SERVER=django-oauth2-test:8040
-      - RAS_FRONTSTAGE_CLIENT_ID=ons@ons.gov
-      - RAS_FRONTSTAGE_CLIENT_SECRET=password
-      - ONS_AUTHORIZATION_ENDPOINT=/web/authorize/
-      - ONS_TOKEN_ENDPOINT=/api/v1/tokens/
-      - ONS_ADMIN_ENDPOINT=/api/account/create
-      - ONS_OAUTH_PROTOCOL=http://
+      - OAUTHLIB_INSECURE_TRANSPORT=1                           # Used for development. Allows OAuth2 protocol to work over non TLS protocol
+      - APP_SETTINGS=config.Config                              # Allows Flask to load config files
+      - ONS_OAUTH_SERVER=django-oauth2-test:8040                # Tells ras-frontstage how to find the django OAuth2 server
+      - RAS_FRONTSTAGE_CLIENT_ID=ons@ons.gov                    # Configures a Client ID for ras-frontstage see: https://www.oauth.com/oauth2-servers/client-registration/client-id-secret/
+      - RAS_FRONTSTAGE_CLIENT_SECRET=password                   # Configures a Client secret for ras-frontstage see above URL
+      - ONS_AUTHORIZATION_ENDPOINT=/web/authorize/              # Configures an authorisation endpoint see: https://www.oauth.com/oauth2-servers/authorization/
+      - ONS_TOKEN_ENDPOINT=/api/v1/tokens/                      # Configures a token endpoint see:  https://www.oauth.com/oauth2-servers/access-tokens/
+      - ONS_ADMIN_ENDPOINT=/api/account/create                  # The admin interface to our OAuth2 server.
+      - ONS_OAUTH_PROTOCOL=http://                              # This could be overkill, but if we ever chnage the protocol we can do here
 
+      - DEBUG=False
+      - TESTING=False
+      - CSRF_ENABLED=True
+      - SECRET_KEY=this-really-needs-to-be-changed
+      - dbname=ras_frontstage_backup
+      - SQLALCHEMY_DATABASE_URI=postgresql://ras_party:password@postgres:5432/postgres
 
+      - PARTYSERVICE_PROTOCOL=http://
+      - PARTYSERVICE_SERVER=ras-party:5062
+      - PARTYSERVICE_REGISTER_ENDPOINT=/respondents/
+
+    restart: always
+    depends_on:
+      - postgres
     networks:
       - ras
 
@@ -28,6 +41,16 @@ services:
       context: ras-party
     ports:
       - "5162:5062"
+
+    environment:
+      - DEBUG=False
+      - TESTING=False
+      - CSRF_ENABLED=True
+      - SECRET_KEY=this-really-needs-to-be-changed
+      - dbname=ras_party
+      - SQLALCHEMY_DATABASE_URI=postgresql://ras_party:password@postgres:5432/postgres
+
+
     networks:
       - ras
 
