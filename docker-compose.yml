@@ -68,8 +68,7 @@ services:
     ports:
       - "5152:5052"
     environment:
-      - spring.datasource.url=jdbc:postgresql://postgres:5432/postgres
-      - eureka.client.serviceUrl.defaultZone=http://ras-registry:8761/eureka/
+      - SQLALCHEMY_DATABASE_URI=postgresql://ras_collection_instrument:password@postgres:5432/postgres
     networks:
       - ras
 
