@@ -1,5 +1,17 @@
 version: '2'
 services:
+
+  # Database container:
+  # The defaut port to postgres DB is 5432. However some people have postgres running on their local machine, so we
+  # need to change our external port number to map our local port to the docker instance port. We are using 5431 until
+  # we here otherwise
+  postgres:
+    image: postgres:9.6
+    ports:
+      - "5431:5432"
+    networks:
+      - ras
+
   # Our frontstage machine which is responsible for delivering the correct Electronic Questionarie (EQ)
   ras-frontstage:
     build:
@@ -41,7 +53,6 @@ services:
       context: ras-party
     ports:
       - "5162:5062"
-
     environment:
       - DEBUG=False
       - TESTING=False
@@ -49,8 +60,6 @@ services:
       - SECRET_KEY=this-really-needs-to-be-changed
       - dbname=ras_party
       - SQLALCHEMY_DATABASE_URI=postgresql://ras_party:password@postgres:5432/postgres
-
-
     networks:
       - ras
 
@@ -59,6 +68,10 @@ services:
       context: django-oauth2-test
     ports:
       - "8140:8040"
+    depends_on:
+       - postgres
+    environment:
+      - DJANGO_SETTINGS_MODULE=proj.settings.docker-settings    # We are allowing docker to tell our OAuth2 server to use a different settings.py file to startup
     networks:
       - ras
 
@@ -92,16 +105,6 @@ services:
   #  networks:
   #    - ras
 
-  # Database container:
-  # The defaut port to postgres DB is 5432. However some people have postgres running on their local machine, so we
-  # need to change our external port number to map our local port to the docker instance port. We are using 5431 until
-  # we here otherwise
-  postgres:
-    image: postgres:9.6
-    ports:
-      - "5431:5432"
-    networks:
-      - ras
 
 networks:
   ras:
