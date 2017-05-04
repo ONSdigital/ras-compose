@@ -81,10 +81,11 @@ services:
     networks:
       - ras
 
-  secure-messaging-api:
-    build: ./
+  secure-message:
+    build: 
+      context: ras-secure-message
     environment:
-      SECURE_MESSAGING_DATABASE_URL: postgres://rasmessage:rasmessage@db:5432/messages
+      SECURE_MESSAGING_DATABASE_URL: postgres://ras_secure_message:password@postgres:5432/postgres
       RAS_SM_PATH: ./
     restart: always
     depends_on:
@@ -92,7 +93,7 @@ services:
     networks:
       - ras 
     ports:
-      - "5050:5055"
+      - "5055:5050"
 
   # Spring config server - not currently used.
   #ras-config:
