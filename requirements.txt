@@ -1,6 +1,5 @@
 appdirs==1.4.0
 arrow==0.10.0
-behave==1.2.5
 binaryornot==0.4.0
 chardet==2.3.0
 click==6.7
