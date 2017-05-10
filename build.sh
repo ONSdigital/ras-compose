@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-REPOS="django-oauth2-test ras-collection-instrument ras-frontstage ras-party" # Not currently used: ras-config ras-config-files
+REPOS="django-oauth2-test ras-collection-instrument ras-frontstage ras-party ras-secure-message" # Not currently used: ras-config ras-config-files
 PARENT=`pwd`
 
 
