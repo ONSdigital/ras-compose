@@ -7,10 +7,15 @@ services:
   # we here otherwise
   postgres:
     image: postgres:9.6
+    volumes_from:                                                 # We are linking our DB to a docker logical volume so that our Data remains after building
+    - pg_data                                                     # a container. This should be changed for a production build
     ports:
       - "5431:5432"
     networks:
       - ras
+
+  pg_data:                                                        # This is a logicl volume docker container. It only holds our data persisted by the
+    image: pg_data                                                # postgres instance
 
   # Our frontstage machine which is responsible for delivering the correct Electronic Questionarie (EQ)
   ras-frontstage:
@@ -68,10 +73,16 @@ services:
       context: django-oauth2-test
     ports:
       - "8140:8040"
+    restart: always
     depends_on:
        - postgres
     environment:
-      - DJANGO_SETTINGS_MODULE=proj.settings.docker-settings    # We are allowing docker to tell our OAuth2 server to use a different settings.py file to startup
+      - DJANGO_SETTINGS_MODULE=proj.settings.dockersettings    # We are allowing docker to tell our OAuth2 server to use a different settings.py file to startup
+    #volumes:
+    #  - .:/oauth2server
+    command: python oauth2server/manage.py runserver 0.0.0.0:8040
+      #- python manage.py migrate
+      #-
     networks:
       - ras
 
