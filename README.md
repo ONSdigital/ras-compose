@@ -42,7 +42,7 @@ Here's how to get RAS up and running. For a developer machine, [Docker Compose](
 
 This diagram summarises the kinds of target environment we're looking at for deploying this application. 
 
-![Targetting Cloud Foundry and Docker](https://docs.google.com/drawings/d/1Ch4_BZRWbUSYWQJQF5CsVFU2lu6zFw3okEQjuu3tfks/)
+![Targetting Cloud Foundry and Docker](https://docs.google.com/drawings/d/1Ch4_BZRWbUSYWQJQF5CsVFU2lu6zFw3okEQjuu3tfks/pub?w=960&h=720)
 
 There are basically three ways to get a running system:
 
