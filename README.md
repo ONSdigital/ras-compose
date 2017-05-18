@@ -26,7 +26,7 @@ The following components are here to capture supporting components:
 
 The following diagram summarises how the components are connected. DB connections are a continuous line:
 
-![Architecture pattern](https://docs.google.com/drawings/d/19qXRtqJwjtz9g6dLOyMWA9W5bXvdiKAuk154g7yCXEk/)
+![Architecture pattern](https://docs.google.com/drawings/d/19qXRtqJwjtz9g6dLOyMWA9W5bXvdiKAuk154g7yCXEk/pub?w=960&h=720)
 
 ## Running
 
