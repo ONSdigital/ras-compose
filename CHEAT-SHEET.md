@@ -3,6 +3,13 @@ This is a short doc to consolidate many CLI commands that we as a team use to he
 on the system. There are currently 2 systems in play at the moment. One is docker, and the other is cloud foundry. Both
 systems provide similar functionality depending on what and how you want to achieve.
 
+The document is split into the following parts:
+1) Cloud Foundry commands
+2) Docker commands
+3) How to create a local Jenkins server using docker
+4) Deprecated commands or systems
+
+
 At the time of writing there is an Amazon instance that is hosting an implementation of cloud foundry.
 
 ## Cloudfoundry Commands
@@ -161,9 +168,17 @@ You environment variable is set but how do you activate it? You can restage your
 
 After you have brought the system up with the 'docker-compose up -d' command you may find the following commands useful.
 
-1) How do I see active docker containers
+1) How do I see active docker containers and all containers/images on my machine
 
-/> docker ps
+You can see the running and active containers with the docker command:
+
+    /> docker ps
+
+You can see all containers and images on your machine - this includes all that are not running at that point in time
+with the command:
+
+    /> docker ps -a
+
 
 2) How do I get a shell prompt onto a container.
 
@@ -268,6 +283,39 @@ If I want to stop the ras frontstage on my machine I would do:
    implications of this pattern match
 
    />docker rmi $(docker images | grep "^ras" | awk "{print $3}")
+
+
+## How to create a local Jenkins server using docker
+
+If you wish to create a local jenkins server to do jobs and push to cloud foundry it's best to do this in a docker
+image which will save you time in configuring and setting up. The instructions will show you how to download an image,
+run it and map the directories of that image to a local folder so that the next time you start the container it will
+persist data.
+
+
+### Getting Jenkins for docker - mapping directory and mapping local ports.
+
+Docker Hub already has a packaged Jenkins container. We will download this image, run it, name it 'Jenkins', map our
+ports to 8082:8000 5000:5000 and mount a local folder as a volume on our container.
+
+If we have a directory called '~/docker-jenkins/jenkins' that we wish to map as a volume our command to do this is:
+
+    /> `docker run --name jenkins -p 8082:8080 -p 50000:50000 -v ~/docker-jenkins/jenkins:/var/jenkins_home jenkins`
+
+### Getting your Jenkins password
+
+The initial jenkins password will be shown on the log screen. But you can find it in the /jenkins/secrets directory.
+Go to http://localhost:8082 to get your login screen
+
+### Starting Jenkins Container
+
+To start your container at some subsequent time use the docker start command:
+
+    /> docker start jenkins
+
+## Deprecated Commands or Systems
+
+This section contains commands and instructions for systems that are at this moment no longer used.
 
 ### Config For UUA (ras-authentication)
 
