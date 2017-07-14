@@ -14,45 +14,44 @@ In that list, you should see the following components (these may get renamed and
 The following components provide the functionality of the Respondent Account Services system:
 
   * [ras-frontstage](https://github.com/ONSdigital/ras-frontstage) - this is a Python/Flask web application that provides the public user interface to the system.
-  * [ras-respondent](https://github.com/ONSdigital/ras-respondent) - this is a basic Spring Boot microservice to receive calls from the front-end web application.
+  * [ras-party](https://github.com/ONSdigital/ras-party) - this is a Python/Flask web application that provides the DB layer between respondents (users), businesses and business surveys
   * [ras-collection-instrument](https://github.com/ONSdigital/ras-collection-instrument) - this is a first iteration of a service to manage survey collection instruments. This is a lightweight best-guess implementation because we'd like to demonstrate building a service that provides some business functionality. It will need to be revisited and iterated as the service develops and evolves.
 
 ### Supporting components
 
-The following components are here to provide a Spring Cloud Netflix environment around the application components:
+The following components are here to capture supporting components:
 
-  * [ras-gateway](https://github.com/ONSdigital/ras-gateway) - a Spring Cloud annotation-driven implementation of Zuul.
-  * [ras-registry](https://github.com/ONSdigital/ras-registry) - the Spring Cloud single-annotation implementation of Netflix Eureka.
-  * [ras-authentication](https://github.com/ONSdigital/ras-authentication) - a forked copy of the [Cloud Foundry UAA component](https://github.com/cloudfoundry/uaa), stripped back to version 3.9.1 because versions 3.9.2 and 3.9.3 fail to start using the Cloud Foundry supplied Quick Start instructions (`./gradlew run`)
-  * [ras-config](https://github.com/ONSdigital/ras-config) - the Spring Cloud single-annotation config server. *This is not currently in use as Spring Boot clients don't seem to be able to retrieve their properties from it out-of-the-box, using the Spring-supplied example code*.
-  * [ras-config-files](https://github.com/ONSdigital/ras-config-files) - test config properties for [ras-config](https://github.com/ONSdigital/ras-config). *Not currently in use*.
-  
+
 ### Architecture pattern
 
-The following diagram summarises how the components above form a standard Spring Cloud Netflix environment:
+The following diagram summarises how the components are connected. DB connections are a continuous line:
 
-![Architecture pattern](https://docs.google.com/drawings/d/1LBzr-0UqJoLVxNgLoy5dog3O4tihLpVjMvQq6Qs43bU/pub?w=1061&h=719)
+![Architecture pattern](https://docs.google.com/drawings/d/19qXRtqJwjtz9g6dLOyMWA9W5bXvdiKAuk154g7yCXEk/pub?w=960&h=720)
 
 ## Running
 
 Here's how to get RAS up and running. For a developer machine, [Docker Compose](https://docs.docker.com/compose/) is a good way to go:
 
-  * To pull and build the set of components, run [./build.sh](https://github.com/ONSdigital/ras-compose/blob/master/build.sh). This will check out each repo and, using a Gradle container, compile each Java component.
+  * To pull and build the set of components, run [./build.sh](https://github.com/ONSdigital/ras-compose/blob/master/build.sh). This will check out each repo and place into a subdirectory of /ras-compose.
   * To start the system, run [./run.sh](https://github.com/ONSdigital/ras-compose/blob/master/run.sh). This will clear down your environment, build container images and start up the components according to the [docker-compose.yml](https://github.com/ONSdigital/ras-compose/blob/master/docker-compose.yml) file.
-  * To make things a little easier, [ras-frontstage](https://github.com/ONSdigital/ras-frontstage) gets mapped to [localhost:5000](http://localhost:5000) and [ras-gateway](https://github.com/ONSdigital/ras-gateway) gets mapped to [localhost:8080](http://localhost:8080)
+  * To run things manually if you want to check things out you can do: 1) /> docker-compose down  2) docker-compose build  3) docker-compose up -d
+  * To make things a little easier, [ras-frontstage](https://github.com/ONSdigital/ras-frontstage) gets mapped to [localhost:5000](http://localhost:5000) and
   * To get a command-line where you can `curl` individual components, run `./cmd.sh`. You may need to check `docker network ls` to ensure the run script is attempting to attach you to the correct Docker network.
 
 ## Developer machine setup
 
 This diagram summarises the kinds of target environment we're looking at for deploying this application. 
 
-![Targetting Cloud Foundry or Docker](https://docs.google.com/drawings/d/1H6k7CheKkCEHCFb91RrQW_XzGEuuXup1ReDwYnBFNJY/pub?w=632&h=387)
+![Targetting Cloud Foundry and Docker](https://docs.google.com/drawings/d/1Ch4_BZRWbUSYWQJQF5CsVFU2lu6zFw3okEQjuu3tfks/pub?w=960&h=720)
 
 There are basically three ways to get a running system:
 
-  * Build and run each component separately and **manually**. This requires the least amount of supporting infrastructure, but the most manual effort.
+  * Build and run each component separately and **manually**. This requires the least amount of supporting infrastructure, but the most manual effort. For a Python Flask system it's /> python app.py for a Python Django project it's /> python manage.py runserver'
   * Run using **Docker Compose**. This should be straightforward and, if you already use Docker, the most straightforward and accessible way of understanding how the components fit together.
   * Run using **Cloud Foundry**. If you like Cloud Foundry, you can run the system using something like [PCF Dev](https://pivotal.io/pcf-dev). This is something of a halfway house. There'll be some manual effort to CF push and configure some of the components, but if CF is a natural environment for you this might be your preferred option.
+
+
+
 
 For a couple of additional resources, see the [/docs](https://github.com/ONSdigital/ras-compose/blob/master/docs) folder in this repo.
 
