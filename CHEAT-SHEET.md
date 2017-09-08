@@ -36,6 +36,12 @@ have a login already then you can change your login here:
 
 https://login.system.mvp.onsclofo.uk/login
 
+You can also use Pivotal Web Services (PWS)to do the exact same thing. I recommend doing this so you can test with 2
+systems. To setup an account go here: https://login.run.pivotal.io/
+
+
+
+
 To login to the ONS system we need to use the CF tool. This uses OAuth2 to obtain a token. Once you specify the API you
 want to access it obtains a token and uses this to communicate with your endpoints.
 
@@ -54,6 +60,32 @@ e.g.
     />  API endpoint: https://api.system.mvp.onsclofo.uk
     />  Authenticating...
     />  OK
+
+
+To login to the PWS Cloud Foundry you need to login to the specific API endpoint. Save yourself hours of googling and
+read the CLI command below - this shows me logging into my Pivotal account. For me I have used the attributes:
+1) API gateway:     api.run.pivotal.io
+2) User name:       Nicholas.Herriot@gmail.com
+3) Your password:   xxxxxxxxx
+
+/>  cf login -a api.run.pivotal.io -u Nicholas.Herriot@gmail.com -p xxxxxxxxxx
+    API endpoint: api.run.pivotal.io
+    Authenticating...
+    OK
+
+    Targeted org ONS-Test-Space
+
+    Targeted space development
+
+    API endpoint:   https://api.run.pivotal.io (API version: 2.84.0)
+    User:           Nicholas.Herriot@gmail.com
+    Org:            ONS-Test-Space
+    Space:          development
+
+Note: Do NOT use the login URL - You have to use the api URL. This will then pass a json object to your CLI command that
+has the correct login URL. The CLI tool does this, but can be very misleading!
+
+
 
 ### Verify Your CF Instance Works And Looking At All Running Applications
 
