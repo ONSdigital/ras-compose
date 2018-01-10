@@ -1,4 +1,4 @@
-REPOS="django-oauth2-test" "ras-collection-instrument" "ras-frontstage" "ras-party" "ras-secure-message"
+REPOS="django-oauth2-test" "ras-collection-instrument" "ras-frontstage" "ras-party" "ras-secure-message" "ras-backstage"
 
 
 NO_COLOR=\033[0m
