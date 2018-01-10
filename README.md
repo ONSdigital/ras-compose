@@ -1,5 +1,5 @@
 # ras-compose
-Developer environment for RAS components. 
+Developer environment for RAS components.
 
 This repository is intended to be a single place from which to "check out, build and run" the Respondent Account Services system (RAS). If you have [Docker](https://docker.com/) ([Mac](https://docs.docker.com/#/docker-for-mac) / [Linux](https://docs.docker.com/#/docker-for-linux) / [Windows](https://docs.docker.com/#/docker-for-windows)) and [Docker Compose](https://www.docker.com/products/docker-compose) installed, you *should* be able to clone and go. If it doesn't work for you, do get in touch.
 
@@ -38,9 +38,30 @@ Here's how to get RAS up and running. For a developer machine, [Docker Compose](
   * To make things a little easier, [ras-frontstage](https://github.com/ONSdigital/ras-frontstage) gets mapped to [localhost:5000](http://localhost:5000) and
   * To get a command-line where you can `curl` individual components, run `./cmd.sh`. You may need to check `docker network ls` to ensure the run script is attempting to attach you to the correct Docker network.
 
+Alternatively it's possible to use the makefile to start the service.  To do so
+set up a ``RAS_HOME`` environment variable where you wish to clone (e.g. ``/home/my-user/ras``).
+
+Once this is set, you can bring the services up with:
+
+```shell
+$ make start
+```
+
+Rebuild services:
+
+```shell
+$ make build
+```
+
+To git pull all the ras repos (and to discover what branch each repo is on):
+
+```shell
+$ make update
+```
+
 ## Developer machine setup
 
-This diagram summarises the kinds of target environment we're looking at for deploying this application. 
+This diagram summarises the kinds of target environment we're looking at for deploying this application.
 
 ![Targetting Cloud Foundry and Docker](https://docs.google.com/drawings/d/1Ch4_BZRWbUSYWQJQF5CsVFU2lu6zFw3okEQjuu3tfks/pub?w=960&h=720)
 
@@ -56,5 +77,3 @@ There are basically three ways to get a running system:
 For a couple of additional resources, see the [/docs](https://github.com/ONSdigital/ras-compose/blob/master/docs) folder in this repo.
 
 There are also specific instructions for setting up [Linux Mint](https://github.com/ONSdigital/ras-compose/blob/master/docs/Linux-Mint.md)
-
-
